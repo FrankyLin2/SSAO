@@ -1,0 +1,47 @@
+[
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/g++-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -std=gnu++17 -o CMakeFiles/SSAO.dir/main.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/main.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/main.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/g++-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -std=gnu++17 -o CMakeFiles/SSAO.dir/imgui/imgui.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/g++-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -std=gnu++17 -o CMakeFiles/SSAO.dir/imgui/imgui_demo.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui_demo.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui_demo.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/g++-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -std=gnu++17 -o CMakeFiles/SSAO.dir/imgui/imgui_draw.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui_draw.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui_draw.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/g++-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -std=gnu++17 -o CMakeFiles/SSAO.dir/imgui/imgui_tables.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui_tables.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui_tables.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/g++-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -std=gnu++17 -o CMakeFiles/SSAO.dir/imgui/imgui_widgets.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui_widgets.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/imgui_widgets.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/g++-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -std=gnu++17 -o CMakeFiles/SSAO.dir/imgui/backends/imgui_impl_opengl3.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends/imgui_impl_opengl3.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends/imgui_impl_opengl3.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/g++-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -std=gnu++17 -o CMakeFiles/SSAO.dir/imgui/backends/imgui_impl_glfw.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends/imgui_impl_glfw.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends/imgui_impl_glfw.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/local/bin/gcc-11 -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/imgui/backends -g -o CMakeFiles/SSAO.dir/glad.c.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/glad.c",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/glad.c"
+}
+]

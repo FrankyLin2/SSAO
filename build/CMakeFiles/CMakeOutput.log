@@ -1,0 +1,440 @@
+The system is: Darwin - 17.7.0 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/local/bin/gcc-11 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/3.23.1/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/local/bin/g++-11 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/3.23.1/CompilerIdCXX/a.out"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/local/bin/ninja cmTC_5ab53 && [1/2] Building C object CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o
+Using built-in specs.
+COLLECT_GCC=/usr/local/bin/gcc-11
+Target: x86_64-apple-darwin17
+Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/11 --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c,c++,objc,obj-c++,fortran,d --program-suffix=-11 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 11.3.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --enable-libphobos --build=x86_64-apple-darwin17 --with-system-zlib
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 11.3.0 (Homebrew GCC 11.3.0) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=10.13.0' '-asm_macosx_version_min=10.13' '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_5ab53.dir/'
+ /usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/cc1 -quiet -v -iprefix /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/ -D__DYNAMIC__ /usr/local/Cellar/cmake/3.23.1_1/share/cmake/Modules/CMakeCCompilerABI.c -fPIC -quiet -dumpdir CMakeFiles/cmTC_5ab53.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mmacosx-version-min=10.13.0 -mtune=core2 -version -o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//ccJCDYWd.s
+GNU C17 (Homebrew GCC 11.3.0) version 11.3.0 (x86_64-apple-darwin17)
+	compiled by GNU C version 11.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../x86_64-apple-darwin17/include"
+ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include"
+ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed"
+ignoring nonexistent directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../x86_64-apple-darwin17/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed
+ /usr/local/include
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../include
+ /usr/include
+ /System/Library/Frameworks
+ /Library/Frameworks
+End of search list.
+GNU C17 (Homebrew GCC 11.3.0) version 11.3.0 (x86_64-apple-darwin17)
+	compiled by GNU C version 11.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: e94c04a582572e25fbf67db81a701fc6
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=10.13.0'  '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_5ab53.dir/'
+ as -arch x86_64 -v -mmacosx-version-min=10.13 -force_cpusubtype_ALL -o CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//ccJCDYWd.s
+Apple LLVM version 10.0.0 (clang-1000.11.45.5)
+Target: x86_64-apple-darwin17.7.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+Found CUDA installation: /usr/local/cuda, version unknown
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1as -triple x86_64-apple-macosx10.13.0 -filetype obj -main-file-name ccJCDYWd.s -target-cpu penryn -fdebug-compilation-dir /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/CMakeTmp -dwarf-debug-producer Apple LLVM version 10.0.0 (clang-1000.11.45.5) -dwarf-version=4 -mrelocation-model pic -o CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//ccJCDYWd.s
+COMPILER_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/
+LIBRARY_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=10.13.0'  '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.'
+[2/2] Linking C executable cmTC_5ab53
+Using built-in specs.
+COLLECT_GCC=/usr/local/bin/gcc-11
+COLLECT_LTO_WRAPPER=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/lto-wrapper
+Target: x86_64-apple-darwin17
+Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/11 --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c,c++,objc,obj-c++,fortran,d --program-suffix=-11 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 11.3.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --enable-libphobos --build=x86_64-apple-darwin17 --with-system-zlib
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 11.3.0 (Homebrew GCC 11.3.0) 
+COMPILER_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/
+LIBRARY_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_5ab53' '-mmacosx-version-min=10.13.0' '-asm_macosx_version_min=10.13' '-nodefaultexport' '-mtune=core2' '-dumpdir' 'cmTC_5ab53.'
+ /usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/collect2 -dynamic -arch x86_64 -macosx_version_min 10.13.0 -o cmTC_5ab53 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o -lemutls_w -lgcc -lSystem -no_compact_unwind
+collect2 version 11.3.0
+/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.13.0 -o cmTC_5ab53 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o -lemutls_w -lgcc -lSystem -no_compact_unwind
+@(#)PROGRAM:ld  PROJECT:ld64-409.12
+BUILD 17:47:51 Sep 25 2018
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em arm64e arm64_32
+Library search paths:
+	/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11
+	/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc
+	/usr/local/Cellar/gcc/11.3.0/lib/gcc/11
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include]
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed]
+    add: [/usr/local/include]
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../include]
+    add: [/usr/include]
+    add: [/System/Library/Frameworks]
+    add: [/Library/Frameworks]
+  end of search list found
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11/include]
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../include] ==> [/usr/local/Cellar/gcc/11.3.0/include]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  collapse include dir [/System/Library/Frameworks] ==> [/System/Library/Frameworks]
+  collapse include dir [/Library/Frameworks] ==> [/Library/Frameworks]
+  implicit include dirs: [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11/include;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed;/usr/local/include;/usr/local/Cellar/gcc/11.3.0/include;/usr/include;/System/Library/Frameworks;/Library/Frameworks]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/local/bin/ninja cmTC_5ab53 && [1/2] Building C object CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/local/bin/gcc-11]
+  ignore line: [Target: x86_64-apple-darwin17]
+  ignore line: [Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/11 --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c c++ objc obj-c++ fortran d --program-suffix=-11 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 11.3.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --enable-libphobos --build=x86_64-apple-darwin17 --with-system-zlib]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 11.3.0 (Homebrew GCC 11.3.0) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=10.13.0' '-asm_macosx_version_min=10.13' '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_5ab53.dir/']
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/cc1 -quiet -v -iprefix /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/ -D__DYNAMIC__ /usr/local/Cellar/cmake/3.23.1_1/share/cmake/Modules/CMakeCCompilerABI.c -fPIC -quiet -dumpdir CMakeFiles/cmTC_5ab53.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mmacosx-version-min=10.13.0 -mtune=core2 -version -o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//ccJCDYWd.s]
+  ignore line: [GNU C17 (Homebrew GCC 11.3.0) version 11.3.0 (x86_64-apple-darwin17)]
+  ignore line: [	compiled by GNU C version 11.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../x86_64-apple-darwin17/include"]
+  ignore line: [ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include"]
+  ignore line: [ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../x86_64-apple-darwin17/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../include]
+  ignore line: [ /usr/include]
+  ignore line: [ /System/Library/Frameworks]
+  ignore line: [ /Library/Frameworks]
+  ignore line: [End of search list.]
+  ignore line: [GNU C17 (Homebrew GCC 11.3.0) version 11.3.0 (x86_64-apple-darwin17)]
+  ignore line: [	compiled by GNU C version 11.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: e94c04a582572e25fbf67db81a701fc6]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=10.13.0'  '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_5ab53.dir/']
+  ignore line: [ as -arch x86_64 -v -mmacosx-version-min=10.13 -force_cpusubtype_ALL -o CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//ccJCDYWd.s]
+  ignore line: [Apple LLVM version 10.0.0 (clang-1000.11.45.5)]
+  ignore line: [Target: x86_64-apple-darwin17.7.0]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
+  ignore line: [Found CUDA installation: /usr/local/cuda  version unknown]
+  ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1as -triple x86_64-apple-macosx10.13.0 -filetype obj -main-file-name ccJCDYWd.s -target-cpu penryn -fdebug-compilation-dir /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/CMakeTmp -dwarf-debug-producer Apple LLVM version 10.0.0 (clang-1000.11.45.5) -dwarf-version=4 -mrelocation-model pic -o CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//ccJCDYWd.s]
+  ignore line: [COMPILER_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=10.13.0'  '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.']
+  ignore line: [[2/2] Linking C executable cmTC_5ab53]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/local/bin/gcc-11]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/lto-wrapper]
+  ignore line: [Target: x86_64-apple-darwin17]
+  ignore line: [Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/11 --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c c++ objc obj-c++ fortran d --program-suffix=-11 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 11.3.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --enable-libphobos --build=x86_64-apple-darwin17 --with-system-zlib]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 11.3.0 (Homebrew GCC 11.3.0) ]
+  ignore line: [COMPILER_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_5ab53' '-mmacosx-version-min=10.13.0' '-asm_macosx_version_min=10.13' '-nodefaultexport' '-mtune=core2' '-dumpdir' 'cmTC_5ab53.']
+  link line: [ /usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/collect2 -dynamic -arch x86_64 -macosx_version_min 10.13.0 -o cmTC_5ab53 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o -lemutls_w -lgcc -lSystem -no_compact_unwind]
+    arg [/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/collect2] ==> ignore
+    arg [-dynamic] ==> ignore
+    arg [-arch] ==> ignore
+    arg [x86_64] ==> ignore
+    arg [-macosx_version_min] ==> ignore
+    arg [10.13.0] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_5ab53] ==> ignore
+    arg [-L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11] ==> dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11]
+    arg [-L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc] ==> dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc]
+    arg [-L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../..] ==> dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../..]
+    arg [-search_paths_first] ==> ignore
+    arg [-headerpad_max_install_names] ==> ignore
+    arg [-v] ==> ignore
+    arg [CMakeFiles/cmTC_5ab53.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lemutls_w] ==> lib [emutls_w]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lSystem] ==> lib [System]
+    arg [-no_compact_unwind] ==> ignore
+  Library search paths: [;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11;/usr/lib;/usr/local/lib]
+  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
+  remove lib [System]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../..] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
+  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
+  implicit libs: [emutls_w;gcc]
+  implicit objs: []
+  implicit dirs: [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11;/usr/lib;/usr/local/lib]
+  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/local/bin/ninja cmTC_ba0ff && [1/2] Building CXX object CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o
+Using built-in specs.
+COLLECT_GCC=/usr/local/bin/g++-11
+Target: x86_64-apple-darwin17
+Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/11 --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c,c++,objc,obj-c++,fortran,d --program-suffix=-11 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 11.3.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --enable-libphobos --build=x86_64-apple-darwin17 --with-system-zlib
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 11.3.0 (Homebrew GCC 11.3.0) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mmacosx-version-min=10.13.0' '-asm_macosx_version_min=10.13' '-nodefaultexport' '-shared-libgcc' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_ba0ff.dir/'
+ /usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/cc1plus -quiet -v -iprefix /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/ -D__DYNAMIC__ /usr/local/Cellar/cmake/3.23.1_1/share/cmake/Modules/CMakeCXXCompilerABI.cpp -fPIC -quiet -dumpdir CMakeFiles/cmTC_ba0ff.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mmacosx-version-min=10.13.0 -mtune=core2 -version -o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//cczRFmjH.s
+GNU C++17 (Homebrew GCC 11.3.0) version 11.3.0 (x86_64-apple-darwin17)
+	compiled by GNU C version 11.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../x86_64-apple-darwin17/include"
+ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11"
+ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/x86_64-apple-darwin17"
+ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/backward"
+ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include"
+ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed"
+ignoring nonexistent directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../x86_64-apple-darwin17/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/x86_64-apple-darwin17
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/backward
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed
+ /usr/local/include
+ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../include
+ /usr/include
+ /System/Library/Frameworks
+ /Library/Frameworks
+End of search list.
+GNU C++17 (Homebrew GCC 11.3.0) version 11.3.0 (x86_64-apple-darwin17)
+	compiled by GNU C version 11.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 6c6f325d1ceeee3296930a67033f3584
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mmacosx-version-min=10.13.0'  '-nodefaultexport' '-shared-libgcc' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_ba0ff.dir/'
+ as -arch x86_64 -v -mmacosx-version-min=10.13 -force_cpusubtype_ALL -o CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//cczRFmjH.s
+Apple LLVM version 10.0.0 (clang-1000.11.45.5)
+Target: x86_64-apple-darwin17.7.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+Found CUDA installation: /usr/local/cuda, version unknown
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1as -triple x86_64-apple-macosx10.13.0 -filetype obj -main-file-name cczRFmjH.s -target-cpu penryn -fdebug-compilation-dir /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/CMakeTmp -dwarf-debug-producer Apple LLVM version 10.0.0 (clang-1000.11.45.5) -dwarf-version=4 -mrelocation-model pic -o CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//cczRFmjH.s
+COMPILER_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/
+LIBRARY_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mmacosx-version-min=10.13.0'  '-nodefaultexport' '-shared-libgcc' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.'
+[2/2] Linking CXX executable cmTC_ba0ff
+Using built-in specs.
+COLLECT_GCC=/usr/local/bin/g++-11
+COLLECT_LTO_WRAPPER=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/lto-wrapper
+Target: x86_64-apple-darwin17
+Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/11 --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c,c++,objc,obj-c++,fortran,d --program-suffix=-11 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 11.3.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --enable-libphobos --build=x86_64-apple-darwin17 --with-system-zlib
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 11.3.0 (Homebrew GCC 11.3.0) 
+COMPILER_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/
+LIBRARY_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_ba0ff' '-mmacosx-version-min=10.13.0' '-asm_macosx_version_min=10.13' '-nodefaultexport' '-shared-libgcc' '-mtune=core2' '-dumpdir' 'cmTC_ba0ff.'
+ /usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/collect2 -dynamic -arch x86_64 -macosx_version_min 10.13.0 -o cmTC_ba0ff -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lemutls_w -lgcc -lSystem -no_compact_unwind
+collect2 version 11.3.0
+/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.13.0 -o cmTC_ba0ff -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lemutls_w -lgcc -lSystem -no_compact_unwind
+@(#)PROGRAM:ld  PROJECT:ld64-409.12
+BUILD 17:47:51 Sep 25 2018
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em arm64e arm64_32
+Library search paths:
+	/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11
+	/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc
+	/usr/local/Cellar/gcc/11.3.0/lib/gcc/11
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11]
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/x86_64-apple-darwin17]
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/backward]
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include]
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed]
+    add: [/usr/local/include]
+    add: [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../include]
+    add: [/usr/include]
+    add: [/System/Library/Frameworks]
+    add: [/Library/Frameworks]
+  end of search list found
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11] ==> [/usr/local/Cellar/gcc/11.3.0/include/c++/11]
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/x86_64-apple-darwin17] ==> [/usr/local/Cellar/gcc/11.3.0/include/c++/11/x86_64-apple-darwin17]
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/backward] ==> [/usr/local/Cellar/gcc/11.3.0/include/c++/11/backward]
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11/include]
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../include] ==> [/usr/local/Cellar/gcc/11.3.0/include]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  collapse include dir [/System/Library/Frameworks] ==> [/System/Library/Frameworks]
+  collapse include dir [/Library/Frameworks] ==> [/Library/Frameworks]
+  implicit include dirs: [/usr/local/Cellar/gcc/11.3.0/include/c++/11;/usr/local/Cellar/gcc/11.3.0/include/c++/11/x86_64-apple-darwin17;/usr/local/Cellar/gcc/11.3.0/include/c++/11/backward;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11/include;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed;/usr/local/include;/usr/local/Cellar/gcc/11.3.0/include;/usr/include;/System/Library/Frameworks;/Library/Frameworks]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/local/bin/ninja cmTC_ba0ff && [1/2] Building CXX object CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/local/bin/g++-11]
+  ignore line: [Target: x86_64-apple-darwin17]
+  ignore line: [Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/11 --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c c++ objc obj-c++ fortran d --program-suffix=-11 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 11.3.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --enable-libphobos --build=x86_64-apple-darwin17 --with-system-zlib]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 11.3.0 (Homebrew GCC 11.3.0) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mmacosx-version-min=10.13.0' '-asm_macosx_version_min=10.13' '-nodefaultexport' '-shared-libgcc' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_ba0ff.dir/']
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/cc1plus -quiet -v -iprefix /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/ -D__DYNAMIC__ /usr/local/Cellar/cmake/3.23.1_1/share/cmake/Modules/CMakeCXXCompilerABI.cpp -fPIC -quiet -dumpdir CMakeFiles/cmTC_ba0ff.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mmacosx-version-min=10.13.0 -mtune=core2 -version -o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//cczRFmjH.s]
+  ignore line: [GNU C++17 (Homebrew GCC 11.3.0) version 11.3.0 (x86_64-apple-darwin17)]
+  ignore line: [	compiled by GNU C version 11.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../x86_64-apple-darwin17/include"]
+  ignore line: [ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11"]
+  ignore line: [ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/x86_64-apple-darwin17"]
+  ignore line: [ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/backward"]
+  ignore line: [ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include"]
+  ignore line: [ignoring duplicate directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../x86_64-apple-darwin17/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/x86_64-apple-darwin17]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../../../../include/c++/11/backward]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/include-fixed]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/../../../../include]
+  ignore line: [ /usr/include]
+  ignore line: [ /System/Library/Frameworks]
+  ignore line: [ /Library/Frameworks]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++17 (Homebrew GCC 11.3.0) version 11.3.0 (x86_64-apple-darwin17)]
+  ignore line: [	compiled by GNU C version 11.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 6c6f325d1ceeee3296930a67033f3584]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mmacosx-version-min=10.13.0'  '-nodefaultexport' '-shared-libgcc' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_ba0ff.dir/']
+  ignore line: [ as -arch x86_64 -v -mmacosx-version-min=10.13 -force_cpusubtype_ALL -o CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//cczRFmjH.s]
+  ignore line: [Apple LLVM version 10.0.0 (clang-1000.11.45.5)]
+  ignore line: [Target: x86_64-apple-darwin17.7.0]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
+  ignore line: [Found CUDA installation: /usr/local/cuda  version unknown]
+  ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1as -triple x86_64-apple-macosx10.13.0 -filetype obj -main-file-name cczRFmjH.s -target-cpu penryn -fdebug-compilation-dir /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build/CMakeFiles/CMakeTmp -dwarf-debug-producer Apple LLVM version 10.0.0 (clang-1000.11.45.5) -dwarf-version=4 -mrelocation-model pic -o CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o /var/folders/ws/fp_m12k14gv6g_34fmyn6b800000gn/T//cczRFmjH.s]
+  ignore line: [COMPILER_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mmacosx-version-min=10.13.0'  '-nodefaultexport' '-shared-libgcc' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.']
+  ignore line: [[2/2] Linking CXX executable cmTC_ba0ff]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/local/bin/g++-11]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/lto-wrapper]
+  ignore line: [Target: x86_64-apple-darwin17]
+  ignore line: [Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/11 --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c c++ objc obj-c++ fortran d --program-suffix=-11 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 11.3.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --enable-libphobos --build=x86_64-apple-darwin17 --with-system-zlib]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 11.3.0 (Homebrew GCC 11.3.0) ]
+  ignore line: [COMPILER_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/]
+  ignore line: [LIBRARY_PATH=/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/:/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../../]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_ba0ff' '-mmacosx-version-min=10.13.0' '-asm_macosx_version_min=10.13' '-nodefaultexport' '-shared-libgcc' '-mtune=core2' '-dumpdir' 'cmTC_ba0ff.']
+  link line: [ /usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/collect2 -dynamic -arch x86_64 -macosx_version_min 10.13.0 -o cmTC_ba0ff -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11 -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc -L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../.. -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lemutls_w -lgcc -lSystem -no_compact_unwind]
+    arg [/usr/local/Cellar/gcc/11.3.0/bin/../libexec/gcc/x86_64-apple-darwin17/11/collect2] ==> ignore
+    arg [-dynamic] ==> ignore
+    arg [-arch] ==> ignore
+    arg [x86_64] ==> ignore
+    arg [-macosx_version_min] ==> ignore
+    arg [10.13.0] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_ba0ff] ==> ignore
+    arg [-L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11] ==> dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11]
+    arg [-L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc] ==> dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc]
+    arg [-L/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../..] ==> dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../..]
+    arg [-search_paths_first] ==> ignore
+    arg [-headerpad_max_install_names] ==> ignore
+    arg [-v] ==> ignore
+    arg [CMakeFiles/cmTC_ba0ff.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lemutls_w] ==> lib [emutls_w]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lSystem] ==> lib [System]
+    arg [-no_compact_unwind] ==> ignore
+  Library search paths: [;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11;/usr/lib;/usr/local/lib]
+  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
+  remove lib [System]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/bin/../lib/gcc/11/gcc/x86_64-apple-darwin17/11/../../..] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc]
+  collapse library dir [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11] ==> [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
+  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
+  implicit libs: [stdc++;emutls_w;gcc]
+  implicit objs: []
+  implicit dirs: [/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc/x86_64-apple-darwin17/11;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11/gcc;/usr/local/Cellar/gcc/11.3.0/lib/gcc/11;/usr/lib;/usr/local/lib]
+  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+
+

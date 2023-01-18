@@ -1,0 +1,22 @@
+# ninja log v5
+2	213	1673778655000000000	CMakeFiles/SSAO.dir/glad.c.o	697a3a0cb5ff9a58
+4	2686	1673787053000000000	CMakeFiles/SSAO.dir/main.cpp.o	605cbb1b31117e9
+2686	2755	1673787053000000000	SSAO	658327f397da967d
+2	3307	1673778658000000000	CMakeFiles/SSAO.dir/imgui/imgui.cpp.o	25e61f2095e8977
+7	365	1673770885000000000	imgui/CMakeFiles/imgui_backend_glut.dir/backends/imgui_impl_glut.cpp.o	f0283b02e6cf9ff5
+6	380	1673770885000000000	imgui/CMakeFiles/imgui_backend_glfw.dir/backends/imgui_impl_glfw.cpp.o	6d5d5c8dc19d7adc
+4	1314	1673770886000000000	imgui/CMakeFiles/imgui.dir/imgui_demo.cpp.o	a475179e9cc6382e
+5	1487	1673770886000000000	imgui/CMakeFiles/imgui.dir/imgui_tables.cpp.o	f4af41a95aa645ad
+4	2055	1673770887000000000	imgui/CMakeFiles/imgui.dir/imgui_draw.cpp.o	e3ccab8810aa154a
+6	2308	1673770887000000000	imgui/CMakeFiles/imgui.dir/imgui_widgets.cpp.o	cd1c12b849fdd713
+4	3206	1673770888000000000	imgui/CMakeFiles/imgui.dir/imgui.cpp.o	a6baa2ad8b2f57b6
+4	70	1673771389000000000	imgui/libimgui.dylib	3ad1efbaf20da112
+5	221	1673771389000000000	imgui/CMakeFiles/imgui_backend_opengl3.dir/backends/imgui_impl_opengl3.cpp.o	24da62a703414fe5
+8	375	1673778353000000000	CMakeFiles/SSAO.dir/imgui/backends/imgui_impl_opengl3.cpp.o	41cd3588ad66d7d1
+10	412	1673778353000000000	CMakeFiles/SSAO.dir/imgui/backends/imgui_impl_glfw.cpp.o	b47027d2a288376f
+2	1195	1673778656000000000	CMakeFiles/SSAO.dir/imgui/imgui_demo.cpp.o	171e975da4ab2e2a
+3	1449	1673778656000000000	CMakeFiles/SSAO.dir/imgui/imgui_tables.cpp.o	1def96e0198cedf8
+2	2110	1673778657000000000	CMakeFiles/SSAO.dir/imgui/imgui_draw.cpp.o	736c2ef4b5f47965
+3	2403	1673778657000000000	CMakeFiles/SSAO.dir/imgui/imgui_widgets.cpp.o	a9cf21ab389099c9
+4	3153	1674038123000000000	CMakeFiles/SSAO.dir/main.cpp.o	605cbb1b31117e9
+3153	3308	1674038124000000000	SSAO	658327f397da967d
