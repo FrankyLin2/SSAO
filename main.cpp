@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <random>
+#include <memory>
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 // void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -22,8 +23,9 @@ void processInput(GLFWwindow *window);
 unsigned int loadTexture(const char *path);
 void renderQuad();
 void renderCube();
-void RenderMainImGui(GLFWwindow* window);
+void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices);
 void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel);
+void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount = 50, float posStddev = 2.0, float scaleStddev = 0.1);
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -34,6 +36,20 @@ Camera camera(glm::vec3(0.0f, 0.0f, 10.0f));
 float lastX = (float)SCR_WIDTH  / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
+
+//partical distrubution
+struct distributionConfig
+{
+    int maxAmount = 50;
+    float posStddev = 2.0;
+    float scaleStddev =0.1;
+}disConfig;
+
+//shader config
+struct shaderConfig
+{
+    /* data */
+}shaderConfig;
 
 // timing
 float deltaTime = 0.0f;
@@ -199,42 +215,13 @@ int main()
     genSsaoKernel(ssaoKernel);
     // generate a large list of semi-random model transformation matrices
     // ------------------------------------------------------------------
-    std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
-    std::normal_distribution<GLfloat> normalRandomFloats(0.0, 1.0);
-    std::random_device rd;
-    std::default_random_engine generator(rd());
-    //amount random from 0-50;
-    unsigned int amount = randomFloats(generator) * 50;
-    glm::mat4* modelMatrices;
-    modelMatrices = new glm::mat4[amount];
-    //mean:center of model's position distribution
-    glm::vec3 mean = glm::vec3(normalRandomFloats(generator) * 2, normalRandomFloats(generator) * 2, normalRandomFloats(generator) * 2 - 5.0);
-    //stddev: stddev of model's position distribution
-    float posStddev = 2.0;
-    //scale stddev: makes scale between (1-3*stddev, 1+3*stddev)
-    float scaleStddev = 0.1;    
-    for (unsigned int i = 0; i < amount; i++)
-    {
-        glm::mat4 model = glm::mat4(1.0f);
-        // 1. translation: 
-        glm::vec3 pos = glm::vec3(normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev) + mean;
-        model = glm::translate(model, pos);
-
-        // 2. scale: Scale between 0.7 and 1.3f
-        float scale = normalRandomFloats(generator) * scaleStddev + 1.0f;
-        model = glm::scale(model, glm::vec3(scale));
-
-        // 3. rotation: add random rotation around three rotation axis vector
-        model = glm::rotate(model, randomFloats(generator) * 360.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-        model = glm::rotate(model, randomFloats(generator) * 360.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::rotate(model, randomFloats(generator) * 360.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-
-        // 4. now add to list of matrices
-        modelMatrices[i] = model;
-    }
-
+    std::vector<glm::mat4> modelMatrices;
+    updateModelMatrices(modelMatrices);
     // generate noise texture
     // ----------------------
+    std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
+    std::random_device rd;
+    std::default_random_engine generator(rd());
     std::vector<glm::vec3> ssaoNoise;
     for (unsigned int i = 0; i < 16; i++)
     {
@@ -292,28 +279,28 @@ int main()
         // 1. geometry pass: render scene's geometry/color data into gbuffer
         // -----------------------------------------------------------------
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            // glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 50.0f);
-            glm::mat4 projection = glm::ortho(-16.0f/2, 16.0f/2, -12.0f/2, 12.0f/2, 0.1f, 50.0f);
-            glm::mat4 view = camera.GetViewMatrix();
-            glm::mat4 model = glm::mat4(1.0f);
-            shaderGeometryPass.use();
-            shaderGeometryPass.setMat4("projection", projection);
-            shaderGeometryPass.setMat4("view", view);
-            // room cube
-            model = glm::mat4(1.0f);
-            model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
-            model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
-            shaderGeometryPass.setMat4("model", model);
-            shaderGeometryPass.setInt("invertedNormals", 1); // invert normals as we're inside the cube
-            renderCube();
-            shaderGeometryPass.setInt("invertedNormals", 0); 
-            // octahedron model on the floor
-            for (unsigned int i = 0; i < amount; i++)
-            {
-                shaderGeometryPass.setMat4("model", modelMatrices[i]);
-                octahedron.Draw(shaderGeometryPass);
-            }
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 50.0f);
+        glm::mat4 projection = glm::ortho(-16.0f/2, 16.0f/2, -12.0f/2, 12.0f/2, 0.1f, 50.0f);
+        glm::mat4 view = camera.GetViewMatrix();
+        glm::mat4 model = glm::mat4(1.0f);
+        shaderGeometryPass.use();
+        shaderGeometryPass.setMat4("projection", projection);
+        shaderGeometryPass.setMat4("view", view);
+        // room cube
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
+        model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+        shaderGeometryPass.setMat4("model", model);
+        shaderGeometryPass.setInt("invertedNormals", 1); // invert normals as we're inside the cube
+        renderCube();
+        shaderGeometryPass.setInt("invertedNormals", 0); 
+        // octahedron model on the floor
+        for (auto modelMatrice: modelMatrices)
+        {
+            shaderGeometryPass.setMat4("model", modelMatrice);
+            octahedron.Draw(shaderGeometryPass);
+        }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
@@ -369,7 +356,7 @@ int main()
         glActiveTexture(GL_TEXTURE3); // add extra SSAO texture to lighting pass
         glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur);
         renderQuad();
-        RenderMainImGui(window);
+        RenderMainImGui(window, modelMatrices);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -581,7 +568,7 @@ unsigned int loadTexture(char const *path)
 
     return textureID;
 }
-void RenderMainImGui(GLFWwindow* window)
+void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices)
 {
     static float f = 0.0f;
     static int counter = 0;
@@ -589,9 +576,14 @@ void RenderMainImGui(GLFWwindow* window)
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     {
-        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-        ImGui::Text("Use 'Left Alter' to focus on window");
-
+        ImGui::Begin("ImGui Window");                          // Create a window called "Hello, world!" and append into it.
+        ImGui::Text("maxAmount: max number of cubes. default 50");
+        ImGui::SliderInt("maxAmount", &disConfig.maxAmount,10,100);
+        ImGui::SliderFloat("posStddev: stddev of model's position distribution, default 2.0",&disConfig.posStddev,1.0f,4.0f);
+        ImGui::SliderFloat("scaleStddev: makes scale between (1-3*stddev, 1+3*stddev),default 0.1",&disConfig.scaleStddev,0.05f,0.25f);
+        if (ImGui::Button("generate")){
+            updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleStddev);
+        }
         //自定义GUI内容
         ImGui::End();        
     }
@@ -617,5 +609,38 @@ void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel){
         // scale = ourLerp(0.1f, 1.0f, scale * scale);
         // sample *= scale;
         ssaoKernel.push_back(sample);
+    }
+}
+    //posStddev: stddev of model's position distribution, default 2.0
+    //scaleStddev: makes scale between (1-3*stddev, 1+3*stddev),default 0.1
+    //maxAmount: max number of cubes. default 50
+void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount, float posStddev, float scaleStddev){
+    std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
+    std::normal_distribution<GLfloat> normalRandomFloats(0.0, 1.0);
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+    //amount random from 0-50;
+    unsigned int amount = randomFloats(generator) * maxAmount;
+    //mean:center of model's position distribution
+    glm::vec3 mean = glm::vec3(normalRandomFloats(generator) * 2, normalRandomFloats(generator) * 2, normalRandomFloats(generator) * 2 - 5.0);
+    modelMatrices = std::vector<glm::mat4>(amount);
+    for (unsigned int i = 0; i < amount; i++)
+    {
+        glm::mat4 model = glm::mat4(1.0f);
+        // 1. translation: 
+        glm::vec3 pos = glm::vec3(normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev) + mean;
+        model = glm::translate(model, pos);
+
+        // 2. scale: Scale between 0.7 and 1.3f
+        float scale = normalRandomFloats(generator) * scaleStddev + 1.0f;
+        model = glm::scale(model, glm::vec3(scale));
+
+        // 3. rotation: add random rotation around three rotation axis vector
+        model = glm::rotate(model, randomFloats(generator) * 360.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, randomFloats(generator) * 360.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, randomFloats(generator) * 360.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+
+        // 4. now add to list of matrices
+        modelMatrices[i] = model;
     }
 }
