@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: /Users/qiankudawang/Code/learn_opengl/chap5/SSAO
-BuildDirectory: /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build
+SourceDirectory: /Users/qiankudawang/code/SSAO
+BuildDirectory: /Users/qiankudawang/code/SSAO/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: qiankudawangMAC.local
+Site: mbp-2.local
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Darwin-g++-11
@@ -21,14 +21,13 @@ LabelsForSubprojects:
 
 # Submission information
 SubmitURL: http://
-SubmitInactivityTimeout: 
 
 # Dashboard start time
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/local/Cellar/cmake/3.23.1_1/bin/cmake" "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO"
-MakeCommand: /usr/local/Cellar/cmake/3.23.1_1/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
+ConfigureCommand: "/usr/local/Cellar/cmake/3.21.3/bin/cmake" "/Users/qiankudawang/code/SSAO"
+MakeCommand: /usr/local/Cellar/cmake/3.21.3/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
 # version control
@@ -45,7 +44,7 @@ SVNOptions:
 SVNUpdateOptions: 
 
 # Git options
-GITCommand: /usr/bin/git
+GITCommand: /usr/local/bin/git
 GITInitSubmodules: 
 GITUpdateOptions: 
 GITUpdateCustom: 
@@ -58,13 +57,13 @@ P4UpdateOptions:
 P4UpdateCustom: 
 
 # Generic update command
-UpdateCommand: /usr/bin/git
+UpdateCommand: /usr/local/bin/git
 UpdateOptions: 
 UpdateType: git
 
 # Compiler info
 Compiler: /usr/local/bin/g++-11
-CompilerVersion: 11.3.0
+CompilerVersion: 11.2.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 

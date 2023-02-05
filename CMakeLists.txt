@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD 17) # this does nothing for MSVC, use target_compile_opti
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
-
+include_directories("${CMAKE_SOURCE_DIR}/include")
+include_directories("usr/local/include")
 find_package(OpenGL REQUIRED)
 message(STATUS "Found OpenGL in ${OpenGL_INCLUDE_DIR}")
 find_package(GLFW3 REQUIRED)
@@ -24,7 +25,7 @@ set ( PRJ_LIBRARIES )
 set ( PRJ_INCLUDE_DIRS )
 
 
-set ( IMGUI_HOME "${CMAKE_SOURCE_DIR}/imgui" )
+set ( IMGUI_HOME "${CMAKE_SOURCE_DIR}/include/imgui" )
 
 
 set ( IMGUI_INC "${IMGUI_HOME}" )
@@ -47,9 +48,11 @@ list ( APPEND imgui_src_files "${IMGUI_BACKEND}/imgui_impl_opengl3.cpp" )
 list ( APPEND imgui_src_files "${IMGUI_BACKEND}/imgui_impl_glfw.cpp" )
 
 list ( APPEND PRJ_INCLUDE_DIRS . )
-list ( APPEND PRJ_INCLUDE_DIRS ${GLFW_INC} )
+list ( APPEND PRJ_INCLUDE_DIRS ${GLFW3_INCLUDE_DIR} )
+list ( APPEND PRJ_INCLUDE_DIRS ${ASSIMP_INCLUDE_DIR} )
 list ( APPEND PRJ_INCLUDE_DIRS ${IMGUI_INC} )
 list ( APPEND PRJ_INCLUDE_DIRS ${IMGUI_BACKEND} )
+
 
 list ( APPEND PRJ_INC_LIST ${root_header_files} )
 list ( APPEND PRJ_INC_LIST ${imgui_header_files} )
@@ -58,8 +61,9 @@ list ( APPEND PRJ_SRC_LIST ${root_src_files} )
 list ( APPEND PRJ_SRC_LIST ${imgui_src_files} )
 list ( APPEND PRJ_SRC_LIST ${root_c_src_files} )
 
-list ( APPEND PRJ_LIBRARIES ${GLFW_LIB} )
+list ( APPEND PRJ_LIBRARIES ${GLFW3_LIBRARY} )
 list ( APPEND PRJ_LIBRARIES ${OPENGL_LIBRARIES} )
+list ( APPEND PRJ_LIBRARIES ${assimp_LIBRARIES} )
 
 add_executable ( ${PROJECT_NAME} ${PRJ_SRC_LIST} ${PRJ_INC_LIST} )
 
@@ -68,11 +72,11 @@ target_include_directories ( ${PROJECT_NAME}
         ${PRJ_INCLUDE_DIRS}
 )
 
-# target_link_libraries ( ${PROJECT_NAME} 
-#     PRIVATE 
-#         ${PRJ_LIBRARIES}
-# )
+target_link_libraries ( ${PROJECT_NAME} 
+    PRIVATE 
+        ${PRJ_LIBRARIES}
+)
 
-target_link_libraries(${PROJECT_NAME} libglfw.dylib)
-target_link_libraries(${PROJECT_NAME} libassimp.dylib)
+# target_link_libraries(${PROJECT_NAME} libglfw.dylib)
+# target_link_libraries(${PROJECT_NAME} libassimp.dylib)
 # target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})

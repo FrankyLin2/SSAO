@@ -281,7 +281,7 @@ int main()
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 50.0f);
-        glm::mat4 projection = glm::ortho(-16.0f/2, 16.0f/2, -12.0f/2, 12.0f/2, 0.1f, 50.0f);
+        glm::mat4 projection = glm::ortho(-16.0f/2, 16.0f/2, -12.0f/2, 12.0f/2, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 model = glm::mat4(1.0f);
         shaderGeometryPass.use();
@@ -289,7 +289,7 @@ int main()
         shaderGeometryPass.setMat4("view", view);
         // room cube
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -30.0f));
         model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
         shaderGeometryPass.setMat4("model", model);
         shaderGeometryPass.setInt("invertedNormals", 1); // invert normals as we're inside the cube
@@ -578,9 +578,10 @@ void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices)
     {
         ImGui::Begin("ImGui Window");                          // Create a window called "Hello, world!" and append into it.
         ImGui::Text("maxAmount: max number of cubes. default 50");
-        ImGui::SliderInt("maxAmount", &disConfig.maxAmount,10,100);
-        ImGui::SliderFloat("posStddev: stddev of model's position distribution, default 2.0",&disConfig.posStddev,1.0f,4.0f);
-        ImGui::SliderFloat("scaleStddev: makes scale between (1-3*stddev, 1+3*stddev),default 0.1",&disConfig.scaleStddev,0.05f,0.25f);
+        ImGui::SliderInt("maxAmount", &disConfig.maxAmount,10,200);
+        ImGui::SliderFloat("posStddev",&disConfig.posStddev,1.0f,5.0f);
+        ImGui::SliderFloat("scaleStddev",&disConfig.scaleStddev,0.05f,0.25f);
+        //重新生成图片
         if (ImGui::Button("generate")){
             updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleStddev);
         }
@@ -622,13 +623,13 @@ void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount, f
     //amount random from 0-50;
     unsigned int amount = randomFloats(generator) * maxAmount;
     //mean:center of model's position distribution
-    glm::vec3 mean = glm::vec3(normalRandomFloats(generator) * 2, normalRandomFloats(generator) * 2, normalRandomFloats(generator) * 2 - 5.0);
+    glm::vec3 mean = glm::vec3(normalRandomFloats(generator), normalRandomFloats(generator), normalRandomFloats(generator) * 2 - 20);
     modelMatrices = std::vector<glm::mat4>(amount);
     for (unsigned int i = 0; i < amount; i++)
     {
         glm::mat4 model = glm::mat4(1.0f);
         // 1. translation: 
-        glm::vec3 pos = glm::vec3(normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev) + mean;
+        glm::vec3 pos = glm::vec3(normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev, randomFloats(generator) * 20-10) + mean;
         model = glm::translate(model, pos);
 
         // 2. scale: Scale between 0.7 and 1.3f

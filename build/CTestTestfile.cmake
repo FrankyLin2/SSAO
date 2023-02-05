@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /Users/qiankudawang/Code/learn_opengl/chap5/SSAO
-# Build directory: /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build
+# Source directory: /Users/qiankudawang/code/SSAO
+# Build directory: /Users/qiankudawang/code/SSAO/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
