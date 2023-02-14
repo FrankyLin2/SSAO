@@ -40,6 +40,7 @@ bool firstMouse = true;
 //partical distrubution
 struct distributionConfig
 {
+    int shapeCurrent = 0;
     int maxAmount = 50;
     float posStddev = 2.0;
     float scaleStddev =0.1;
@@ -59,6 +60,10 @@ float ourLerp(float a, float b, float f)
 {
     return a + f * (b - a);
 }
+
+// load models
+// -----------
+
 
 int main()
 {
@@ -131,12 +136,10 @@ int main()
     Shader shaderLightingPass("../9.ssao.vs", "../9.ssao_lighting.fs");
     Shader shaderSSAO("../9.ssao.vs", "../9.ssao.fs");
     Shader shaderSSAOBlur("../9.ssao.vs", "../9.ssao_blur.fs");
-    // load models
-    // -----------
-    // Model rock("../asset/rock/rock.obj");
-    // Model planet("../asset/Octahedron.obj");
-    Model octahedron("../asset/Octahedron.obj");
 
+    Model octahedron("../asset/Octahedron.obj");
+    Model cube("../asset/cube.obj");
+    vector<Model> models{octahedron, cube};
 
     // configure g-buffer framebuffer
     // ------------------------------
@@ -299,7 +302,7 @@ int main()
         for (auto modelMatrice: modelMatrices)
         {
             shaderGeometryPass.setMat4("model", modelMatrice);
-            octahedron.Draw(shaderGeometryPass);
+            models[disConfig.shapeCurrent].Draw(shaderGeometryPass);
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -581,6 +584,8 @@ void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices)
         ImGui::SliderInt("maxAmount", &disConfig.maxAmount,10,200);
         ImGui::SliderFloat("posStddev",&disConfig.posStddev,1.0f,5.0f);
         ImGui::SliderFloat("scaleStddev",&disConfig.scaleStddev,0.05f,0.25f);
+
+        ImGui::Combo("Shape", &disConfig.shapeCurrent, "octahedron\0cube\0\0");
         //重新生成图片
         if (ImGui::Button("generate")){
             updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleStddev);
