@@ -15,14 +15,24 @@ struct Light {
     float Linear;
     float Quadratic;
 };
+
 uniform Light light;
+
+float rand(vec2 value, float x, vec2 y){
+    //avoid overflew float limit
+    vec2 smallValue = sin(value);
+    //get random
+    float random = dot(smallValue, y);
+    random = fract(sin(random) * x);
+    return random;
+}
 
 void main()
 {             
     // retrieve data from gbuffer
     vec3 FragPos = texture(gPosition, TexCoords).rgb;
     vec3 Normal = texture(gNormal, TexCoords).rgb;
-    vec3 Diffuse = texture(gAlbedo, TexCoords).rgb;
+    vec3 Diffuse = texture(gAlbedo, TexCoords).rgb + 0.3 * (rand(TexCoords, 14375.5964, vec2(15.637, 76.243))-0.5);
     float AmbientOcclusion = texture(ssao, TexCoords).r;
     
     // then calculate lighting as usual
@@ -32,7 +42,7 @@ void main()
     // diffuse
     vec3 lightDir = normalize(light.direction);
     // vec3 diffuse = max(dot(Normal, light.direction), 0.0) * Diffuse * light.Color;
-    vec3 diffuse = (1.6 * (1-pow(dot(Normal,lightDir),2))+vec3(0.2)) * ambient * light.Color;
+    vec3 diffuse = (2.0 * (1-pow(dot(Normal,lightDir),2))+vec3(0.2)) * ambient * light.Color;
     // // specular
     // vec3 halfwayDir = normalize(light.direction + viewDir);  
     // float spec = pow(max(dot(Normal, halfwayDir), 0.0), 8.0);

@@ -16,6 +16,7 @@
 #include <iostream>
 #include <random>
 #include <memory>
+#include <opencv2/opencv.hpp>
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 // void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -27,8 +28,9 @@ void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices);
 void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel);
 void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount = 50, float posStddev = 2.0, float scaleStddev = 0.1);
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1280;
+const unsigned int SCR_HEIGHT = 800;
+//缓冲尺寸，对retina来说是两倍窗口尺寸
 int BUF_WIDTH, BUF_HEIGHT;
 
 // camera
@@ -44,6 +46,7 @@ struct distributionConfig
     int maxAmount = 50;
     float posStddev = 2.0;
     float scaleStddev =0.1;
+    bool flag = 0;
 }disConfig;
 
 //shader config
@@ -265,7 +268,7 @@ int main()
     {
         // per-frame time logic
         // --------------------
-        float currentFrame = static_cast<float>(glfwGetTime());
+        const float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
@@ -284,7 +287,7 @@ int main()
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 50.0f);
-        glm::mat4 projection = glm::ortho(-16.0f/2, 16.0f/2, -12.0f/2, 12.0f/2, 0.1f, 100.0f);
+        glm::mat4 projection = glm::ortho(-12.0f/2 * (float)SCR_WIDTH / (float)SCR_HEIGHT, 12.0f/2 * (float)SCR_WIDTH / (float)SCR_HEIGHT, -12.0f/2, 12.0f/2, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 model = glm::mat4(1.0f);
         shaderGeometryPass.use();
@@ -360,6 +363,7 @@ int main()
         glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur);
         renderQuad();
         RenderMainImGui(window, modelMatrices);
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -588,6 +592,18 @@ void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices)
         ImGui::Combo("Shape", &disConfig.shapeCurrent, "octahedron\0cube\0\0");
         //重新生成图片
         if (ImGui::Button("generate")){
+            disConfig.flag = 1;
+        }
+        if(ImGui::Button("stop")){
+            disConfig.flag = 0;
+        }
+        if(disConfig.flag){
+            //保存图片并更新分布
+            const cv::Mat img(BUF_HEIGHT, BUF_WIDTH, CV_8UC3);
+            glReadPixels(0, 0, img.cols, img.rows, GL_BGR, GL_UNSIGNED_BYTE, img.data);
+            cv::Mat flipped;
+            cv::flip(img, flipped, 0);
+            cv::imwrite("result"+std::to_string((glfwGetTime()))+".jpg", flipped);
             updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleStddev);
         }
         //自定义GUI内容
