@@ -81,7 +81,16 @@
         "__tuple": "cpp",
         "ios": "cpp",
         "locale": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "__functional_base": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "any": "cpp",
+        "forward_list": "cpp",
+        "stack": "cpp",
+        "valarray": "cpp",
+        "ranges": "cpp",
+        "span": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

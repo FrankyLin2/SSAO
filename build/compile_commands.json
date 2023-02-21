@@ -1,47 +1,52 @@
 [
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/g++-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=gnu++17 -o CMakeFiles/SSAO.dir/main.cpp.o -c /Users/qiankudawang/code/SSAO/main.cpp",
-  "file": "/Users/qiankudawang/code/SSAO/main.cpp"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/graham.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/graham.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/graham.cpp"
 },
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/g++-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui.cpp.o -c /Users/qiankudawang/code/SSAO/include/imgui/imgui.cpp",
-  "file": "/Users/qiankudawang/code/SSAO/include/imgui/imgui.cpp"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/main.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/main.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/main.cpp"
 },
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/g++-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui_demo.cpp.o -c /Users/qiankudawang/code/SSAO/include/imgui/imgui_demo.cpp",
-  "file": "/Users/qiankudawang/code/SSAO/include/imgui/imgui_demo.cpp"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui.cpp"
 },
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/g++-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui_draw.cpp.o -c /Users/qiankudawang/code/SSAO/include/imgui/imgui_draw.cpp",
-  "file": "/Users/qiankudawang/code/SSAO/include/imgui/imgui_draw.cpp"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui_demo.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui_demo.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui_demo.cpp"
 },
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/g++-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui_tables.cpp.o -c /Users/qiankudawang/code/SSAO/include/imgui/imgui_tables.cpp",
-  "file": "/Users/qiankudawang/code/SSAO/include/imgui/imgui_tables.cpp"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui_draw.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui_draw.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui_draw.cpp"
 },
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/g++-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui_widgets.cpp.o -c /Users/qiankudawang/code/SSAO/include/imgui/imgui_widgets.cpp",
-  "file": "/Users/qiankudawang/code/SSAO/include/imgui/imgui_widgets.cpp"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui_tables.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui_tables.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui_tables.cpp"
 },
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/g++-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/backends/imgui_impl_opengl3.cpp.o -c /Users/qiankudawang/code/SSAO/include/imgui/backends/imgui_impl_opengl3.cpp",
-  "file": "/Users/qiankudawang/code/SSAO/include/imgui/backends/imgui_impl_opengl3.cpp"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/imgui_widgets.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui_widgets.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/imgui_widgets.cpp"
 },
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/g++-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/backends/imgui_impl_glfw.cpp.o -c /Users/qiankudawang/code/SSAO/include/imgui/backends/imgui_impl_glfw.cpp",
-  "file": "/Users/qiankudawang/code/SSAO/include/imgui/backends/imgui_impl_glfw.cpp"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/backends/imgui_impl_opengl3.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends/imgui_impl_opengl3.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends/imgui_impl_opengl3.cpp"
 },
 {
-  "directory": "/Users/qiankudawang/code/SSAO/build",
-  "command": "/usr/local/bin/gcc-11  -I/Users/qiankudawang/code/SSAO/include -I/Users/qiankudawang/code/SSAO/usr/local/include -I/Users/qiankudawang/code/SSAO/. -I/usr/local/include -I/Users/qiankudawang/code/SSAO/include/imgui -I/Users/qiankudawang/code/SSAO/include/imgui/backends -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -o CMakeFiles/SSAO.dir/glad.c.o -c /Users/qiankudawang/code/SSAO/glad.c",
-  "file": "/Users/qiankudawang/code/SSAO/glad.c"
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang++ -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -std=gnu++17 -o CMakeFiles/SSAO.dir/include/imgui/backends/imgui_impl_glfw.cpp.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends/imgui_impl_glfw.cpp",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends/imgui_impl_glfw.cpp"
+},
+{
+  "directory": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/build",
+  "command": "/usr/bin/clang -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/usr/local/include -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/. -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui -I/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/include/imgui/backends -isystem /usr/local/include/opencv -g -o CMakeFiles/SSAO.dir/glad.c.o -c /Users/qiankudawang/Code/learn_opengl/chap5/SSAO/glad.c",
+  "file": "/Users/qiankudawang/Code/learn_opengl/chap5/SSAO/glad.c"
 }
 ]

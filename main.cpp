@@ -12,11 +12,14 @@
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
+#include "graham.hpp"
+#include "annotation.hpp"
 
 #include <iostream>
 #include <random>
 #include <memory>
 #include <opencv2/opencv.hpp>
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 // void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -24,7 +27,7 @@ void processInput(GLFWwindow *window);
 unsigned int loadTexture(const char *path);
 void renderQuad();
 void renderCube();
-void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices);
+void RenderMainImGui(GLFWwindow* window);
 void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel);
 void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount = 50, float posStddev = 2.0, float scaleStddev = 0.1);
 // settings
@@ -47,6 +50,7 @@ struct distributionConfig
     float posStddev = 2.0;
     float scaleStddev =0.1;
     bool flag = 0;
+    bool save = 0;
 }disConfig;
 
 //shader config
@@ -63,9 +67,7 @@ float ourLerp(float a, float b, float f)
 {
     return a + f * (b - a);
 }
-
-// load models
-// -----------
+annotationWriter annoWriter;
 
 
 int main()
@@ -271,6 +273,7 @@ int main()
         const float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+        
 
         // input
         // -----
@@ -362,7 +365,64 @@ int main()
         glActiveTexture(GL_TEXTURE3); // add extra SSAO texture to lighting pass
         glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur);
         renderQuad();
-        RenderMainImGui(window, modelMatrices);
+        
+        //保存图片,生成标注，更新分布
+        if(disConfig.flag){
+            
+            cv::Mat img(BUF_HEIGHT, BUF_WIDTH, CV_8UC3);
+            glReadPixels(0, 0, img.cols, img.rows, GL_BGR, GL_UNSIGNED_BYTE, img.data);
+
+            //模型中点的坐标
+            std::vector<glm::vec4> verticesPos;
+            auto vp = projection*view;
+            for(auto &vertice: models[disConfig.shapeCurrent].meshes[0].vertices)
+                verticesPos.push_back(glm::vec4(vertice.Position, 1.0f));
+            //对每一个变换后的晶体模型，其所有点的mvp都是一样的
+            for(auto &model: modelMatrices){
+                //确定当前晶体mvp
+                auto mvp = vp*model;
+                vector<Point> points;
+                //当前晶体所有点MVP变换到NDC,不用除以w因为是正交不是透视,然后由NDC变换到screen space，并把x，y坐标塞入点集
+                for(auto vert: verticesPos){
+                    vert = mvp * vert;
+                    static Point pointxy;
+                    pointxy.x = 0.5 * BUF_WIDTH * (vert.x + 1.0);
+                    pointxy.y = 0.5 * BUF_HEIGHT * (vert.y + 1.0);
+                    
+                    points.push_back(pointxy);
+                    // cout<< vert.x<<'\t'<<vert.y<<endl;
+                    // img.at<cv::Vec3b>(int(vert.y),int(vert.x)) = cv::Vec3b(255,255,0);
+                    //todo:z的判断，是否被遮挡，对部分晶体做抛弃
+                }
+                //求凸包
+                ConvexHull ch(points);
+                ch.run();
+                vector<Point> result = ch.getResult();
+
+                annoWriter.addPolygon(result);
+                //让端点显红色
+                for(auto resPoint: result){
+                    img.at<cv::Vec3b>(resPoint.y,resPoint.x) = cv::Vec3b(0,0,255);
+                }
+            }
+            //保存图片
+            cv::Mat flipped;
+            //opengl纹理坐标与图片坐标系不同，opengl左下角为起点，图片左上角起点
+            cv::flip(img, flipped, 0);
+            auto imgName = "result" + std::to_string(currentFrame);
+            cv::imwrite(imgName + ".jpg", flipped);
+            //生成标签
+            annoWriter.genAnnotation(imgName);
+            
+            updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleStddev);
+            // disConfig.flag = 0;
+        }
+        if(disConfig.save){
+            annoWriter.writeToFile("annotation.json");
+            disConfig.save = 0;
+        }
+        RenderMainImGui(window);
+        
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -575,10 +635,8 @@ unsigned int loadTexture(char const *path)
 
     return textureID;
 }
-void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices)
+void RenderMainImGui(GLFWwindow* window)
 {
-    static float f = 0.0f;
-    static int counter = 0;
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
@@ -597,14 +655,8 @@ void RenderMainImGui(GLFWwindow* window, std::vector<glm::mat4> &modelMatrices)
         if(ImGui::Button("stop")){
             disConfig.flag = 0;
         }
-        if(disConfig.flag){
-            //保存图片并更新分布
-            const cv::Mat img(BUF_HEIGHT, BUF_WIDTH, CV_8UC3);
-            glReadPixels(0, 0, img.cols, img.rows, GL_BGR, GL_UNSIGNED_BYTE, img.data);
-            cv::Mat flipped;
-            cv::flip(img, flipped, 0);
-            cv::imwrite("result"+std::to_string((glfwGetTime()))+".jpg", flipped);
-            updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleStddev);
+        if(ImGui::Button("save")){
+            disConfig.save = 1;
         }
         //自定义GUI内容
         ImGui::End();        
@@ -637,6 +689,7 @@ void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel){
     //scaleStddev: makes scale between (1-3*stddev, 1+3*stddev),default 0.1
     //maxAmount: max number of cubes. default 50
 void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount, float posStddev, float scaleStddev){
+    
     std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
     std::normal_distribution<GLfloat> normalRandomFloats(0.0, 1.0);
     std::random_device rd;

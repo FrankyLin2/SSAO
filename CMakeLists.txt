@@ -33,9 +33,10 @@ set ( IMGUI_INC "${IMGUI_HOME}" )
 set ( IMGUI_SRC "${IMGUI_HOME}" )
 set ( IMGUI_BACKEND "${IMGUI_HOME}/backends" )
 
-file ( GLOB root_header_files "${CMAKE_CURRENT_SOURCE_DIR}/*.h" )
-file ( GLOB root_src_files "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" )
-file ( GLOB root_c_src_files "${CMAKE_CURRENT_SOURCE_DIR}/*.c" )
+file ( GLOB root_c_header_files "${CMAKE_SOURCE_DIR}/*.h" )
+file ( GLOB root_header_files "${CMAKE_SOURCE_DIR}/*.hpp" )
+file ( GLOB root_src_files "${CMAKE_SOURCE_DIR}/*.cpp" )
+file ( GLOB root_c_src_files "${CMAKE_SOURCE_DIR}/*.c" )
 
 file ( GLOB imgui_header_files "${IMGUI_INC}/*.h" )
 file ( GLOB imgui_src_files "${IMGUI_SRC}/*.cpp" )
@@ -55,7 +56,9 @@ list ( APPEND PRJ_INCLUDE_DIRS ${IMGUI_INC} )
 list ( APPEND PRJ_INCLUDE_DIRS ${IMGUI_BACKEND} )
 
 
+
 list ( APPEND PRJ_INC_LIST ${root_header_files} )
+list ( APPEND PRJ_INC_LIST ${root_c_header_files} )
 list ( APPEND PRJ_INC_LIST ${imgui_header_files} )
 
 list ( APPEND PRJ_SRC_LIST ${root_src_files} )
@@ -67,7 +70,7 @@ list ( APPEND PRJ_LIBRARIES ${OPENGL_LIBRARIES} )
 list ( APPEND PRJ_LIBRARIES ${assimp_LIBRARIES} )
 list ( APPEND PRJ_LIBRARIES ${OpenCV_LIBRARIES} )
 
-add_executable ( ${PROJECT_NAME} ${PRJ_SRC_LIST} ${PRJ_INC_LIST} )
+add_executable ( ${PROJECT_NAME} ${PRJ_SRC_LIST} ${PRJ_INC_LIST}  graham.hpp)
 
 target_include_directories ( ${PROJECT_NAME}
 	PRIVATE 
