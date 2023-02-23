@@ -7,7 +7,7 @@ uniform sampler2D gPosition;
 uniform sampler2D gNormal;
 uniform sampler2D gAlbedo;
 uniform sampler2D ssao;
-
+uniform sampler2D gDepth;
 struct Light {
     // vec3 Position;
     vec3 direction;
@@ -55,4 +55,8 @@ void main()
     lighting += diffuse;
 
     FragColor = vec4(lighting, 1.0);
+
+    // float depth = texture(gDepth,TexCoords).r;
+    // vec3 depthcolor = vec3(depth);
+    // FragColor = vec4(depthcolor, 1.0);
 }

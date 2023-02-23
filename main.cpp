@@ -30,6 +30,8 @@ void renderCube();
 void RenderMainImGui(GLFWwindow* window);
 void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel);
 void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount = 50, float posStddev = 2.0, float scaleStddev = 0.1);
+bool findSame(glm::vec4 &key, vector<glm::vec4> &elems);
+GLfloat sampleMax(GLfloat *positionData, int x, int y);
 // settings
 const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 800;
@@ -152,7 +154,7 @@ int main()
     glGenFramebuffers(1, &gBuffer);
     //bind framebuffer with gBuffer, then render to gBuffer
     glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
-    unsigned int gPosition, gNormal, gAlbedo;//three G-buffer, 位置，法线，漫反射created in SSAO_geometry pass, saved as textures. 
+    unsigned int gPosition, gNormal, gAlbedo, gDepth;//three G-buffer, 位置，法线，漫反射created in SSAO_geometry pass, saved as textures. 
     // position color buffer
     glGenTextures(1, &gPosition);
     glBindTexture(GL_TEXTURE_2D, gPosition);
@@ -176,9 +178,16 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gAlbedo, 0);
+    //depth for discard vertex
+    glGenTextures(1, &gDepth);
+    glBindTexture(GL_TEXTURE_2D, gDepth);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, BUF_WIDTH, BUF_HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, gDepth, 0);
     // tell OpenGL which color attachments we'll use (of this framebuffer) for rendering 
-    unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
-    glDrawBuffers(3, attachments);
+    unsigned int attachments[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
+    glDrawBuffers(4, attachments);
     // create and attach depth buffer (renderbuffer), we don't need to sample depth later, so use renderbuffer,make it quicker
     unsigned int rboDepth;
     glGenRenderbuffers(1, &rboDepth);
@@ -256,6 +265,7 @@ int main()
     shaderLightingPass.setInt("gNormal", 1);
     shaderLightingPass.setInt("gAlbedo", 2);
     shaderLightingPass.setInt("ssao", 3);
+    shaderLightingPass.setInt("gDepth", 4);
     shaderSSAO.use();
 
     shaderSSAO.setInt("gPosition", 0);
@@ -310,6 +320,7 @@ int main()
             shaderGeometryPass.setMat4("model", modelMatrice);
             models[disConfig.shapeCurrent].Draw(shaderGeometryPass);
         }
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
@@ -358,14 +369,20 @@ int main()
         shaderLightingPass.setFloat("light.Quadratic", quadratic);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gPosition);
+
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, gNormal);
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, gAlbedo);
         glActiveTexture(GL_TEXTURE3); // add extra SSAO texture to lighting pass
         glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur);
+        glActiveTexture(GL_TEXTURE4);
+        glBindTexture(GL_TEXTURE_2D, gDepth);
         renderQuad();
+        //保存位置纹理，主要是为了b也就是深度z
         
+        GLfloat *positionData = new GLfloat[BUF_HEIGHT*BUF_WIDTH];
+        glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, positionData); 
         //保存图片,生成标注，更新分布
         if(disConfig.flag){
             
@@ -375,26 +392,43 @@ int main()
             //模型中点的坐标
             std::vector<glm::vec4> verticesPos;
             auto vp = projection*view;
-            for(auto &vertice: models[disConfig.shapeCurrent].meshes[0].vertices)
-                verticesPos.push_back(glm::vec4(vertice.Position, 1.0f));
+            for(auto &vertice: models[disConfig.shapeCurrent].meshes[0].vertices){
+                auto vert = glm::vec4(vertice.Position, 1.0f);
+                //去掉重复的
+                if(findSame(vert, verticesPos))
+                    continue;
+                verticesPos.push_back(vert);
+            }
+                
+            
             //对每一个变换后的晶体模型，其所有点的mvp都是一样的
             for(auto &model: modelMatrices){
                 //确定当前晶体mvp
                 auto mvp = vp*model;
                 vector<Point> points;
+                int count = 0;
                 //当前晶体所有点MVP变换到NDC,不用除以w因为是正交不是透视,然后由NDC变换到screen space，并把x，y坐标塞入点集
                 for(auto vert: verticesPos){
                     vert = mvp * vert;
                     static Point pointxy;
                     pointxy.x = 0.5 * BUF_WIDTH * (vert.x + 1.0);
                     pointxy.y = 0.5 * BUF_HEIGHT * (vert.y + 1.0);
-                    
+                    cout<<(vert.z+1)/2<<"\t"<<positionData[pointxy.y*BUF_WIDTH + pointxy.x]<<endl;
+                    //如果该点深度<缓存深度，则该点可见，count++
+                    auto minDepth = sampleMax(positionData, pointxy.x, pointxy.y);
+                    if((vert.z+1)/2 < minDepth+0.001) count++;
                     points.push_back(pointxy);
-                    // cout<< vert.x<<'\t'<<vert.y<<endl;
-                    // img.at<cv::Vec3b>(int(vert.y),int(vert.x)) = cv::Vec3b(255,255,0);
-                    //todo:z的判断，是否被遮挡，对部分晶体做抛弃
+
                 }
-                //求凸包
+                //如果可见点数量小于所有点数量的四分之一，弃掉（完全可见应该接近并大于1/2)
+                // // for(auto vert: verticesPos){
+                // //     cout<<vert.x<<"\t"<<vert.y<<"\t"<<vert.z<<endl;
+                // // }
+                // cout<<endl;
+                cout<<verticesPos.size()<<"\t"<<count<<endl;
+                if(count < 3) continue;;
+                
+                //求凸包，即最大外接多边形
                 ConvexHull ch(points);
                 ch.run();
                 vector<Point> result = ch.getResult();
@@ -411,6 +445,12 @@ int main()
             cv::flip(img, flipped, 0);
             auto imgName = "result" + std::to_string(currentFrame);
             cv::imwrite(imgName + ".jpg", flipped);
+            cv::Mat tex(BUF_HEIGHT, BUF_WIDTH, CV_32FC1, positionData);
+            cv::flip(tex, tex, 0);
+            cv::imshow("tex", tex);
+            // cv::Mat B;
+            // tex.convertTo(B, CV_8UC1, 255.0/255);
+            // cv::imwrite("tex.jpg", tex);
             //生成标签
             annoWriter.genAnnotation(imgName);
             
@@ -718,4 +758,22 @@ void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount, f
         // 4. now add to list of matrices
         modelMatrices[i] = model;
     }
+}
+bool findSame(glm::vec4 &key, vector<glm::vec4> &elems){
+    for(auto elem: elems){
+        if(glm::all(glm::equal(key,elem)))
+        return true;
+    }
+    return false;
+}
+GLfloat sampleMax(GLfloat *positionData, int x, int y){
+    if(y <= 0) y=1;
+    if(x <= 0) x=1;
+    if(y >= BUF_HEIGHT - 1) y=BUF_HEIGHT - 2;
+    if(x >= BUF_WIDTH - 1) x= BUF_WIDTH - 2;
+
+    return max({positionData[(y-1)*BUF_WIDTH + x-1],positionData[(y-1)*BUF_WIDTH +x],positionData[(y-1)*BUF_WIDTH + x+1],
+        positionData[(y)*BUF_WIDTH + x-1],positionData[(y)*BUF_WIDTH + x],positionData[(y)*BUF_WIDTH + x+1],
+        positionData[(y+1)*BUF_WIDTH + x-1],positionData[(y+1)*BUF_WIDTH + x],positionData[(y+1)*BUF_WIDTH + x+1]});
+
 }

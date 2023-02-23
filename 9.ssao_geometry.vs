@@ -6,6 +6,7 @@ layout (location = 2) in vec2 aTexCoords;
 out vec3 FragPos;
 out vec2 TexCoords;
 out vec3 Normal;
+out float depth;
 //in cube, need to invert normals inside.
 uniform bool invertedNormals;
 
@@ -21,6 +22,8 @@ void main()
     
     mat3 normalMatrix = transpose(inverse(mat3(view * model)));
     Normal = normalMatrix * (invertedNormals ? -aNormal : aNormal);
-    
+    vec4 NDCPos = projection * viewPos;
+    depth = (NDCPos.z+1)/2;
     gl_Position = projection * viewPos;
+    
 }
