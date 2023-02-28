@@ -29,11 +29,14 @@ public:
 
         json region;
         region["shape_attributes"] = shape_attributes;
+        //用于放类别，后面加上
+        region["region_attributes"] = "";
         regions.push_back(region);
         }
         annotation["regions"] = regions; 
-        annotation["filename"] = filename;
+        annotation["filename"] = filename + ".jpg";
         annotations[filename] = annotation;
+        polygons_.clear();
     }
     void writeToFile(const std::string& filename){
         std::ofstream ofs(filename);

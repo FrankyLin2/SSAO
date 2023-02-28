@@ -413,7 +413,7 @@ int main()
                     static Point pointxy;
                     pointxy.x = 0.5 * BUF_WIDTH * (vert.x + 1.0);
                     pointxy.y = 0.5 * BUF_HEIGHT * (vert.y + 1.0);
-                    cout<<(vert.z+1)/2<<"\t"<<positionData[pointxy.y*BUF_WIDTH + pointxy.x]<<endl;
+                    // cout<<(vert.z+1)/2<<"\t"<<positionData[pointxy.y*BUF_WIDTH + pointxy.x]<<endl;
                     //如果该点深度<缓存深度，则该点可见，count++
                     auto minDepth = sampleMax(positionData, pointxy.x, pointxy.y);
                     if((vert.z+1)/2 < minDepth+0.001) count++;
@@ -421,23 +421,20 @@ int main()
 
                 }
                 //如果可见点数量小于所有点数量的四分之一，弃掉（完全可见应该接近并大于1/2)
-                // // for(auto vert: verticesPos){
-                // //     cout<<vert.x<<"\t"<<vert.y<<"\t"<<vert.z<<endl;
-                // // }
-                // cout<<endl;
-                cout<<verticesPos.size()<<"\t"<<count<<endl;
+
+                // cout<<verticesPos.size()<<"\t"<<count<<endl;
                 if(count < 3) continue;;
                 
                 //求凸包，即最大外接多边形
                 ConvexHull ch(points);
                 ch.run();
                 vector<Point> result = ch.getResult();
-
+                // TODO：shape要可选择的，以后改
                 annoWriter.addPolygon(result);
                 //让端点显红色
-                for(auto resPoint: result){
-                    img.at<cv::Vec3b>(resPoint.y,resPoint.x) = cv::Vec3b(0,0,255);
-                }
+                // for(auto resPoint: result){
+                //     img.at<cv::Vec3b>(resPoint.y,resPoint.x) = cv::Vec3b(0,0,255);
+                // }
             }
             //保存图片
             cv::Mat flipped;
@@ -445,12 +442,10 @@ int main()
             cv::flip(img, flipped, 0);
             auto imgName = "result" + std::to_string(currentFrame);
             cv::imwrite(imgName + ".jpg", flipped);
-            cv::Mat tex(BUF_HEIGHT, BUF_WIDTH, CV_32FC1, positionData);
-            cv::flip(tex, tex, 0);
-            cv::imshow("tex", tex);
-            // cv::Mat B;
-            // tex.convertTo(B, CV_8UC1, 255.0/255);
-            // cv::imwrite("tex.jpg", tex);
+            //深度图
+            // cv::Mat tex(BUF_HEIGHT, BUF_WIDTH, CV_32FC1, positionData);
+            // cv::flip(tex, tex, 0);
+            // cv::imshow("tex", tex);
             //生成标签
             annoWriter.genAnnotation(imgName);
             
