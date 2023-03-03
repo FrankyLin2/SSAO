@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+﻿#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
@@ -139,13 +139,13 @@ int main()
     // -------------------------
     // Shader asteroidShader("../10.3.asteroids.vs", "../10.3.asteroids.fs");
     // Shader planetShader("../10.3.planet.vs", "../10.3.planet.fs");
-    Shader shaderGeometryPass("../9.ssao_geometry.vs", "../9.ssao_geometry.fs");
-    Shader shaderLightingPass("../9.ssao.vs", "../9.ssao_lighting.fs");
-    Shader shaderSSAO("../9.ssao.vs", "../9.ssao.fs");
-    Shader shaderSSAOBlur("../9.ssao.vs", "../9.ssao_blur.fs");
+    Shader shaderGeometryPass("../../9.ssao_geometry.vs", "../../9.ssao_geometry.fs");
+    Shader shaderLightingPass("../../9.ssao.vs", "../../9.ssao_lighting.fs");
+    Shader shaderSSAO("../../9.ssao.vs", "../../9.ssao.fs");
+    Shader shaderSSAOBlur("../../9.ssao.vs", "../../9.ssao_blur.fs");
 
-    Model octahedron("../asset/Octahedron.obj");
-    Model cube("../asset/cube.obj");
+    Model octahedron("../../asset/Octahedron.obj");
+    Model cube("../../asset/cube.obj");
     vector<Model> models{octahedron, cube};
 
     // configure g-buffer framebuffer
@@ -379,13 +379,15 @@ int main()
         glActiveTexture(GL_TEXTURE4);
         glBindTexture(GL_TEXTURE_2D, gDepth);
         renderQuad();
-        //保存位置纹理，主要是为了b也就是深度z
         
-        GLfloat *positionData = new GLfloat[BUF_HEIGHT*BUF_WIDTH];
-        glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, positionData); 
+        
+        
         //保存图片,生成标注，更新分布
         if(disConfig.flag){
-            
+            //保存位置纹理，主要是为了b也就是深度z
+            GLfloat *positionData = new GLfloat[BUF_HEIGHT*BUF_WIDTH];
+            glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, positionData); 
+
             cv::Mat img(BUF_HEIGHT, BUF_WIDTH, CV_8UC3);
             glReadPixels(0, 0, img.cols, img.rows, GL_BGR, GL_UNSIGNED_BYTE, img.data);
 
@@ -414,8 +416,13 @@ int main()
                     pointxy.x = 0.5 * BUF_WIDTH * (vert.x + 1.0);
                     pointxy.y = 0.5 * BUF_HEIGHT * (vert.y + 1.0);
                     // cout<<(vert.z+1)/2<<"\t"<<positionData[pointxy.y*BUF_WIDTH + pointxy.x]<<endl;
-                    //如果该点深度<缓存深度，则该点可见，count++
+                    //如果该点深度<该点附近最深的那个缓存深度，则该点可见，count++, 如果该点不在深度图中，即放弃该晶体，总不能裁剪吧哈哈哈太麻烦
                     auto minDepth = sampleMax(positionData, pointxy.x, pointxy.y);
+                    if(minDepth < 0){
+                        points.clear();
+                        count = 0;
+                        break;
+                    }
                     if((vert.z+1)/2 < minDepth+0.001) count++;
                     points.push_back(pointxy);
 
@@ -437,11 +444,11 @@ int main()
                 // }
             }
             //保存图片
-            cv::Mat flipped;
-            //opengl纹理坐标与图片坐标系不同，opengl左下角为起点，图片左上角起点
-            cv::flip(img, flipped, 0);
+            // cv::Mat flipped;
+            //opengl纹理坐标与图片坐标系不同，opengl左下角为起点，图片左上角起点,理论上需要y轴翻转，但是没必要，我们的图不翻转也行
+            // cv::flip(img, flipped, 0);
             auto imgName = "result" + std::to_string(currentFrame);
-            cv::imwrite(imgName + ".jpg", flipped);
+            cv::imwrite(imgName + ".jpg", img);
             //深度图
             // cv::Mat tex(BUF_HEIGHT, BUF_WIDTH, CV_32FC1, positionData);
             // cv::flip(tex, tex, 0);
@@ -451,6 +458,7 @@ int main()
             
             updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleStddev);
             // disConfig.flag = 0;
+            delete positionData;
         }
         if(disConfig.save){
             annoWriter.writeToFile("annotation.json");
@@ -488,41 +496,7 @@ void renderCube()
              1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 1.0f, 1.0f, // top-right
             -1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
             -1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 0.0f, 1.0f, // top-left
-            // // front face
-            // -1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f, 0.0f, // bottom-left
-            //  1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f, 0.0f, // bottom-right
-            //  1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f, 1.0f, // top-right
-            //  1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f, 1.0f, // top-right
-            // -1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f, 1.0f, // top-left
-            // -1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f, 0.0f, // bottom-left
-            // // left face
-            // -1.0f,  1.0f,  1.0f, -1.0f,  0.0f,  0.0f, 1.0f, 0.0f, // top-right
-            // -1.0f,  1.0f, -1.0f, -1.0f,  0.0f,  0.0f, 1.0f, 1.0f, // top-left
-            // -1.0f, -1.0f, -1.0f, -1.0f,  0.0f,  0.0f, 0.0f, 1.0f, // bottom-left
-            // -1.0f, -1.0f, -1.0f, -1.0f,  0.0f,  0.0f, 0.0f, 1.0f, // bottom-left
-            // -1.0f, -1.0f,  1.0f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f, // bottom-right
-            // -1.0f,  1.0f,  1.0f, -1.0f,  0.0f,  0.0f, 1.0f, 0.0f, // top-right
-            // // right face
-            //  1.0f,  1.0f,  1.0f,  1.0f,  0.0f,  0.0f, 1.0f, 0.0f, // top-left
-            //  1.0f, -1.0f, -1.0f,  1.0f,  0.0f,  0.0f, 0.0f, 1.0f, // bottom-right
-            //  1.0f,  1.0f, -1.0f,  1.0f,  0.0f,  0.0f, 1.0f, 1.0f, // top-right         
-            //  1.0f, -1.0f, -1.0f,  1.0f,  0.0f,  0.0f, 0.0f, 1.0f, // bottom-right
-            //  1.0f,  1.0f,  1.0f,  1.0f,  0.0f,  0.0f, 1.0f, 0.0f, // top-left
-            //  1.0f, -1.0f,  1.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f, // bottom-left     
-            // // bottom face
-            // -1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f, 0.0f, 1.0f, // top-right
-            //  1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f, 1.0f, 1.0f, // top-left
-            //  1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f, 1.0f, 0.0f, // bottom-left
-            //  1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f, 1.0f, 0.0f, // bottom-left
-            // -1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f, 0.0f, 0.0f, // bottom-right
-            // -1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f, 0.0f, 1.0f, // top-right
-            // // top face
-            // -1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f, // top-left
-            //  1.0f,  1.0f , 1.0f,  0.0f,  1.0f,  0.0f, 1.0f, 0.0f, // bottom-right
-            //  1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f, 1.0f, 1.0f, // top-right     
-            //  1.0f,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f, 1.0f, 0.0f, // bottom-right
-            // -1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f, // top-left
-            // -1.0f,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f, 0.0f, 0.0f  // bottom-left        
+  
         };
         glGenVertexArrays(1, &cubeVAO);
         glGenBuffers(1, &cubeVBO);
@@ -761,7 +735,10 @@ bool findSame(glm::vec4 &key, vector<glm::vec4> &elems){
     }
     return false;
 }
+//从深度图x，y点返回周围九格深度最大点，（0，1）之间，如不存在返回-1
 GLfloat sampleMax(GLfloat *positionData, int x, int y){
+    if(y < 0 || x < 0 || y > BUF_HEIGHT - 1 || x > BUF_WIDTH - 1) return -1.0;
+
     if(y <= 0) y=1;
     if(x <= 0) x=1;
     if(y >= BUF_HEIGHT - 1) y=BUF_HEIGHT - 2;

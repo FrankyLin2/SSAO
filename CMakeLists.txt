@@ -18,7 +18,7 @@ find_package(ASSIMP REQUIRED)
 message(STATUS "Found ASSIMP in ${ASSIMP_INCLUDE_DIR}")
 find_package(Freetype REQUIRED)
 message(STATUS "Found Freetype in ${FREETYPE_INCLUDE_DIRS}")
-find_package(OpenCV 3 REQUIRED)
+find_package(OpenCV REQUIRED)
 
 set ( PRJ_INC_LIST )
 set ( PRJ_SRC_LIST )
@@ -76,12 +76,18 @@ target_include_directories ( ${PROJECT_NAME}
 	PRIVATE 
         ${PRJ_INCLUDE_DIRS}
 )
-
-target_link_libraries ( ${PROJECT_NAME} 
-    PRIVATE 
-        ${PRJ_LIBRARIES}
+if(APPLE)
+        target_link_libraries ( ${PROJECT_NAME} 
+        PRIVATE 
+                ${PRJ_LIBRARIES}
 )
-
+endif(APPLE)
+if(WIN32)
+        target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
+        target_link_libraries(${PROJECT_NAME} PRIVATE ${OpenCV_LIBS})
+        target_link_libraries(${PROJECT_NAME} PRIVATE assimp::assimp )
+        target_link_libraries(${PROJECT_NAME} PRIVATE ${OPENGL_LIBRARIES} )
+endif(WIN32)
 # target_link_libraries(${PROJECT_NAME} libglfw.dylib)
 # target_link_libraries(${PROJECT_NAME} libassimp.dylib)
 # target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
