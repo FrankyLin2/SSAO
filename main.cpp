@@ -19,6 +19,8 @@
 #include <random>
 #include <memory>
 #include <opencv2/opencv.hpp>
+#include <opencv2/imgproc.hpp>
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 // void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -26,10 +28,10 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 unsigned int loadTexture(const char *path);
 void renderQuad();
-void renderCube();
+void renderFloor();
 void RenderMainImGui(GLFWwindow* window);
 void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel);
-void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount = 50, float posStddev = 2.0, float scaleStddev = 0.1);
+void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount = 50, float posStddev = 2.0, float scaleMean = 1.0f, float scaleStddev = 0.1);
 bool findSame(glm::vec4 &key, vector<glm::vec4> &elems);
 GLfloat sampleMax(GLfloat *positionData, int x, int y);
 // settings
@@ -50,6 +52,7 @@ struct distributionConfig
     int shapeCurrent = 0;
     int maxAmount = 50;
     float posStddev = 2.0;
+    float scaleMean = 1.0;
     float scaleStddev =0.1;
     bool flag = 0;
     bool save = 0;
@@ -58,9 +61,18 @@ struct distributionConfig
 //shader config
 struct shaderConfig
 {
-    /* data */
+    float ka = 0.25;
+    float kd = 0.5;
 }shaderConfig;
 
+//define color
+vector<glm::vec3> colors{glm::vec3{0.0/255, 128.0/255, 128.0/255}, 
+                        glm::vec3{128.0/255, 0.0/255, 128.0/255},
+                        glm::vec3{75.0/255, 0/255, 128.0/255},
+                        glm::vec3{0/255, 0/255, 128.0/255},
+                        glm::vec3{20.0/255, 70.0/255, 150.0/255},
+                        glm::vec3{255/255, 255/255, 0/255},
+                        glm::vec3{255/255, 20.0/255, 60.0/255}};
 // timing
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -69,6 +81,7 @@ float ourLerp(float a, float b, float f)
 {
     return a + f * (b - a);
 }
+
 annotationWriter annoWriter;
 
 
@@ -139,14 +152,26 @@ int main()
     // -------------------------
     // Shader asteroidShader("../10.3.asteroids.vs", "../10.3.asteroids.fs");
     // Shader planetShader("../10.3.planet.vs", "../10.3.planet.fs");
-    Shader shaderGeometryPass("../../9.ssao_geometry.vs", "../../9.ssao_geometry.fs");
-    Shader shaderLightingPass("../../9.ssao.vs", "../../9.ssao_lighting.fs");
-    Shader shaderSSAO("../../9.ssao.vs", "../../9.ssao.fs");
-    Shader shaderSSAOBlur("../../9.ssao.vs", "../../9.ssao_blur.fs");
+    // Shader shaderGeometryPass("../../9.ssao_geometry.vs", "../../9.ssao_geometry.fs");
+    // Shader shaderLightingPass("../../9.ssao.vs", "../../9.ssao_lighting.fs");
+    // Shader shaderSSAO("../../9.ssao.vs", "../../9.ssao.fs");
+    // Shader shaderSSAOBlur("../../9.ssao.vs", "../../9.ssao_blur.fs");
+    // Model octahedron("../../asset/Octahedron.obj");
+    // Model cube("../../asset/cube.obj");
 
-    Model octahedron("../../asset/Octahedron.obj");
-    Model cube("../../asset/cube.obj");
-    vector<Model> models{octahedron, cube};
+    Shader shaderGeometryPass("../ssao_geometry.vs", "../ssao_geometry.fs");
+    Shader shaderGeometryPass_floor("../ssao_geometry.vs", "../ssao_geometry_floor.fs");
+    Shader shaderLightingPass("../ssao.vs", "../ssao_lighting.fs");
+    Shader shaderSSAO("../ssao.vs", "../ssao.fs");
+    Shader shaderSSAOBlur("../ssao.vs", "../ssao_blur.fs");
+
+    auto octahedron = make_shared<Model>("../asset/Octahedron.obj");
+    auto cube = make_shared<Model>("../asset/cube.obj");
+    auto corner_truncated_cubes = make_shared<Model>("../asset/corner_truncated_cubes.obj");
+    auto cuboctahedrons = make_shared<Model>("../asset/cuboctahedrons.obj");
+    auto hexagon_octahedrons = make_shared<Model>("../asset/hexagon_octahedrons.obj");
+    auto vertex_truncated_octahedrons = make_shared<Model>("../asset/vertex_truncated_octahedrons.obj");
+    vector<shared_ptr<Model>> models{octahedron, cube, corner_truncated_cubes, cuboctahedrons, hexagon_octahedrons, vertex_truncated_octahedrons};
 
     // configure g-buffer framebuffer
     // ------------------------------
@@ -209,8 +234,8 @@ int main()
     glGenTextures(1, &ssaoColorBuffer);
     glBindTexture(GL_TEXTURE_2D, ssaoColorBuffer);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, BUF_WIDTH, BUF_HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoColorBuffer, 0);
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         std::cout << "SSAO Framebuffer not complete!" << std::endl;
@@ -219,8 +244,8 @@ int main()
     glGenTextures(1, &ssaoColorBufferBlur);
     glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, BUF_WIDTH, BUF_HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoColorBufferBlur, 0);
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         std::cout << "SSAO Blur Framebuffer not complete!" << std::endl;
@@ -278,6 +303,7 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        
         // per-frame time logic
         // --------------------
         const float currentFrame = static_cast<float>(glfwGetTime());
@@ -303,22 +329,31 @@ int main()
         glm::mat4 projection = glm::ortho(-12.0f/2 * (float)SCR_WIDTH / (float)SCR_HEIGHT, 12.0f/2 * (float)SCR_WIDTH / (float)SCR_HEIGHT, -12.0f/2, 12.0f/2, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 model = glm::mat4(1.0f);
-        shaderGeometryPass.use();
-        shaderGeometryPass.setMat4("projection", projection);
-        shaderGeometryPass.setMat4("view", view);
-        // room cube
+        shaderGeometryPass_floor.use();
+        shaderGeometryPass_floor.setMat4("projection", projection);
+        shaderGeometryPass_floor.setMat4("view", view);
+        // renderFloor
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, -30.0f));
         model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
-        shaderGeometryPass.setMat4("model", model);
-        shaderGeometryPass.setInt("invertedNormals", 1); // invert normals as we're inside the cube
-        renderCube();
-        shaderGeometryPass.setInt("invertedNormals", 0); 
+        shaderGeometryPass_floor.setMat4("model", model);
+        shaderGeometryPass_floor.setInt("invertedNormals", 1); // invert normals as we're inside the cube
+        renderFloor();
+        shaderGeometryPass_floor.setInt("invertedNormals", 0); 
+
+
+        shaderGeometryPass.use();
+        shaderGeometryPass.setMat4("projection", projection);
+        shaderGeometryPass.setMat4("view", view);
         // octahedron model on the floor
+        
+        int colorInd = 0;
         for (auto modelMatrice: modelMatrices)
         {
             shaderGeometryPass.setMat4("model", modelMatrice);
-            models[disConfig.shapeCurrent].Draw(shaderGeometryPass);
+            shaderGeometryPass.setVec3("Albedo", colors[colorInd%7]);
+            colorInd++;
+            models[disConfig.shapeCurrent]->Draw(shaderGeometryPass);
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -365,8 +400,8 @@ int main()
         // Update attenuation parameters
         const float linear    = 0.09f;
         const float quadratic = 0.032f;
-        shaderLightingPass.setFloat("light.Linear", linear);
-        shaderLightingPass.setFloat("light.Quadratic", quadratic);
+        shaderLightingPass.setFloat("light.ka", shaderConfig.ka);
+        shaderLightingPass.setFloat("light.kd", shaderConfig.kd);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gPosition);
 
@@ -394,7 +429,7 @@ int main()
             //模型中点的坐标
             std::vector<glm::vec4> verticesPos;
             auto vp = projection*view;
-            for(auto &vertice: models[disConfig.shapeCurrent].meshes[0].vertices){
+            for(auto &vertice: models[disConfig.shapeCurrent]->meshes[0].vertices){
                 auto vert = glm::vec4(vertice.Position, 1.0f);
                 //去掉重复的
                 if(findSame(vert, verticesPos))
@@ -447,8 +482,10 @@ int main()
             // cv::Mat flipped;
             //opengl纹理坐标与图片坐标系不同，opengl左下角为起点，图片左上角起点,理论上需要y轴翻转，但是没必要，我们的图不翻转也行
             // cv::flip(img, flipped, 0);
+            cv::Mat result;
+            cv::blur(img, result, cv::Size(5, 5));
             auto imgName = "result" + std::to_string(currentFrame);
-            cv::imwrite(imgName + ".jpg", img);
+            cv::imwrite(imgName + ".jpg", result);
             //深度图
             // cv::Mat tex(BUF_HEIGHT, BUF_WIDTH, CV_32FC1, positionData);
             // cv::flip(tex, tex, 0);
@@ -456,9 +493,9 @@ int main()
             //生成标签
             annoWriter.genAnnotation(imgName);
             
-            updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleStddev);
+            updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleMean, disConfig.scaleStddev);
             // disConfig.flag = 0;
-            delete positionData;
+            delete [] positionData;
         }
         if(disConfig.save){
             annoWriter.writeToFile("annotation.json");
@@ -479,11 +516,11 @@ int main()
     return 0;
 }
 
-// renderCube() renders a 1x1 3D cube in NDC.
+// renderFloor() renders floor.
 // -------------------------------------------------
 unsigned int cubeVAO = 0;
 unsigned int cubeVBO = 0;
-void renderCube()
+void renderFloor()
 {
     // initialize (if necessary)
     if (cubeVAO == 0)
@@ -654,9 +691,13 @@ void RenderMainImGui(GLFWwindow* window)
         ImGui::Text("maxAmount: max number of cubes. default 50");
         ImGui::SliderInt("maxAmount", &disConfig.maxAmount,10,200);
         ImGui::SliderFloat("posStddev",&disConfig.posStddev,1.0f,5.0f);
+        ImGui::SliderFloat("scaleMean",&disConfig.scaleMean,0.2f,2.0f);
         ImGui::SliderFloat("scaleStddev",&disConfig.scaleStddev,0.05f,0.25f);
-
-        ImGui::Combo("Shape", &disConfig.shapeCurrent, "octahedron\0cube\0\0");
+        
+        ImGui::SliderFloat("ka:ambient",&shaderConfig.ka,0.0f,0.8f);
+        ImGui::SliderFloat("kd:diffusion",&shaderConfig.kd,0.0f,1.0f);
+        
+        ImGui::Combo("Shape", &disConfig.shapeCurrent, "octahedron\0cube\0corner_truncated_cubes\0cuboctahedrons\0hexagon_octahedrons\0vertex_truncated_octahedrons\0\0");
         //重新生成图片
         if (ImGui::Button("generate")){
             disConfig.flag = 1;
@@ -695,9 +736,10 @@ void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel){
     }
 }
     //posStddev: stddev of model's position distribution, default 2.0
+    //scaleMean: average size, default 1.0;
     //scaleStddev: makes scale between (1-3*stddev, 1+3*stddev),default 0.1
     //maxAmount: max number of cubes. default 50
-void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount, float posStddev, float scaleStddev){
+void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount, float posStddev, float scaleMean, float scaleStddev){
     
     std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
     std::normal_distribution<GLfloat> normalRandomFloats(0.0, 1.0);
@@ -716,9 +758,9 @@ void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount, f
         model = glm::translate(model, pos);
 
         // 2. scale: Scale between 0.7 and 1.3f
-        float scale = normalRandomFloats(generator) * scaleStddev + 1.0f;
+        float scale = normalRandomFloats(generator) * scaleStddev + 1.0;
+        model = glm::scale(model, glm::vec3(scaleMean));
         model = glm::scale(model, glm::vec3(scale));
-
         // 3. rotation: add random rotation around three rotation axis vector
         model = glm::rotate(model, randomFloats(generator) * 360.0f, glm::vec3(1.0f, 0.0f, 0.0f));
         model = glm::rotate(model, randomFloats(generator) * 360.0f, glm::vec3(0.0f, 1.0f, 0.0f));

@@ -12,8 +12,8 @@ struct Light {
     // vec3 Position;
     vec3 direction;
     vec3 Color;
-    float Linear;
-    float Quadratic;
+    float ka;
+    float kd;
 };
 
 uniform Light light;
@@ -32,30 +32,30 @@ void main()
     // retrieve data from gbuffer
     vec3 FragPos = texture(gPosition, TexCoords).rgb;
     vec3 Normal = texture(gNormal, TexCoords).rgb;
-    vec3 Diffuse = texture(gAlbedo, TexCoords).rgb + 0.3 * (rand(TexCoords, 14375.5964, vec2(15.637, 76.243))-0.5);
+    vec3 Diffuse = texture(gAlbedo, TexCoords).rgb;
     float AmbientOcclusion = texture(ssao, TexCoords).r;
     
     // then calculate lighting as usual
-    vec3 ambient = vec3(0.4 * Diffuse * AmbientOcclusion);
-    vec3 lighting  = ambient; 
+    vec3 ambient = vec3(light.ka * Diffuse * AmbientOcclusion);
+    // vec3 lighting  = ambient; 
     vec3 viewDir  = normalize(-FragPos); // viewpos is (0.0.0)
     // diffuse
     vec3 lightDir = normalize(light.direction);
-    // vec3 diffuse = max(dot(Normal, light.direction), 0.0) * Diffuse * light.Color;
-    vec3 diffuse = (2.0 * (1-pow(dot(Normal,lightDir),2))+vec3(0.2)) * ambient * light.Color;
-    // // specular
-    // vec3 halfwayDir = normalize(light.direction + viewDir);  
-    // float spec = pow(max(dot(Normal, halfwayDir), 0.0), 8.0);
-    // vec3 specular = light.Color * spec;
-    // // attenuation
-    // float distance = length(vec3(0.0f) - vec3(0.0, 0.0, FragPos.z));
-    // float attenuation = 1.0 / (1.0 + light.Linear * distance + light.Quadratic * distance * distance);
-    // diffuse *= attenuation;
-    // specular *= attenuation;
-    lighting += diffuse;
+    float t = clamp((AmbientOcclusion*255-150)/50, 0.0, 1.0 );
+    //做一个blending
+    vec3 diffuse = light.kd * ( (1-t)* ((1-dot(Normal,lightDir) * dot(Normal,lightDir))+0.2) * Diffuse + vec3(AmbientOcclusion+0.3)*t );
+    // vec3 diffuse =  light.kd * ((1-dot(Normal,lightDir) * dot(Normal,lightDir))) * ambient * light.Color;
+    vec3 lighting = ambient + diffuse + 0.3 * (rand(TexCoords, 14375.5964, vec2(15.637, 76.243))-0.5);
 
+    // 实际输出
     FragColor = vec4(lighting, 1.0);
 
+//  
+    //检查SSAO
+    // FragColor = vec4(AmbientOcclusion, AmbientOcclusion, AmbientOcclusion, 1.0);
+    // FragColor = vec4(diffuse, 1.0);
+    // FragColor = vec4(t, t, t, 1.0);
+    //检查深度图
     // float depth = texture(gDepth,TexCoords).r;
     // vec3 depthcolor = vec3(depth);
     // FragColor = vec4(depthcolor, 1.0);
