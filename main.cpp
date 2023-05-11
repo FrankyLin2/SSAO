@@ -168,11 +168,11 @@ int main()
     // Model octahedron("../../asset/Octahedron.obj");
     // Model cube("../../asset/cube.obj");
 
-    Shader shaderGeometryPass("../ssao_geometry.vs", "../ssao_geometry.fs");
-    Shader shaderGeometryPass_floor("../ssao_geometry.vs", "../ssao_geometry_floor.fs");
-    Shader shaderLightingPass("../ssao.vs", "../ssao_lighting.fs");
-    Shader shaderSSAO("../ssao.vs", "../ssao.fs");
-    Shader shaderSSAOBlur("../ssao.vs", "../ssao_blur.fs");
+    Shader shaderGeometryPass("../shaders/ssao_geometry.vs", "../shaders/ssao_geometry.fs");
+    Shader shaderGeometryPass_floor("../shaders/ssao_geometry.vs", "../shaders/ssao_geometry_floor.fs");
+    Shader shaderLightingPass("../shaders/ssao.vs", "../shaders/ssao_lighting.fs");
+    Shader shaderSSAO("../shaders/ssao.vs", "../shaders/ssao.fs");
+    Shader shaderSSAOBlur("../shaders/ssao.vs", "../shaders/ssao_blur.fs");
 
     auto octahedron = make_shared<Model>("../asset/Octahedron.obj");
     auto cube = make_shared<Model>("../asset/cube.obj");
