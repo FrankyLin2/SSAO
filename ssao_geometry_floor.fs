@@ -16,6 +16,6 @@ void main()
     gNormal = normalize(Normal);
     // and the diffuse per-fragment color
     //to do: when object have texture,change to texture sample
-    gAlbedo.rgb = vec3(0.3);
+    gAlbedo.rgb = vec3(0.2);
     gDepth = depth;
 }

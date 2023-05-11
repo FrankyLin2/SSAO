@@ -46,6 +46,15 @@ float lastX = (float)SCR_WIDTH  / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
 
+// enum Shapes
+// {
+//     OCTAHEDRON = 0,
+//     CUBE = 1,
+//     CORNER_TRUNCATED_CUBES = 2,
+//     CUBOCTAHEDRONS = 3,
+//     HEXAGON_OCTAHEDRONS = 4,
+//     VERTEX_TRUNCATED_OCTAHEDRONS = 5
+// };
 //partical distrubution
 struct distributionConfig
 {
@@ -61,8 +70,8 @@ struct distributionConfig
 //shader config
 struct shaderConfig
 {
-    float ka = 0.25;
-    float kd = 0.5;
+    float ka = 1.0;
+    float kd = 1.0;
 }shaderConfig;
 
 //define color
@@ -365,7 +374,7 @@ int main()
             glClear(GL_COLOR_BUFFER_BIT);
             shaderSSAO.use();
             // Send kernel + rotation 
-            for (unsigned int i = 0; i < 64; ++i)
+            for (unsigned int i = 0; i < 128; ++i)
                 shaderSSAO.setVec3("samples[" + std::to_string(i) + "]", ssaoKernel[i]);
             shaderSSAO.setMat4("projection", projection);
             glActiveTexture(GL_TEXTURE0);
@@ -464,15 +473,15 @@ int main()
                 }
                 //如果可见点数量小于所有点数量的四分之一，弃掉（完全可见应该接近并大于1/2)
 
-                // cout<<verticesPos.size()<<"\t"<<count<<endl;
-                if(count < 3) continue;;
+                cout<<verticesPos.size()<<"\t"<<count<<endl;
+                if(count <= verticesPos.size()/3) continue;;
                 
                 //求凸包，即最大外接多边形
                 ConvexHull ch(points);
                 ch.run();
                 vector<Point> result = ch.getResult();
                 // TODO：shape要可选择的，以后改
-                annoWriter.addPolygon(result);
+                annoWriter.addPolygon(result, disConfig.shapeCurrent);
                 //让端点显红色
                 // for(auto resPoint: result){
                 //     img.at<cv::Vec3b>(resPoint.y,resPoint.x) = cv::Vec3b(0,0,255);
@@ -485,7 +494,7 @@ int main()
             cv::Mat result;
             cv::blur(img, result, cv::Size(5, 5));
             auto imgName = "result" + std::to_string(currentFrame);
-            cv::imwrite(imgName + ".jpg", result);
+            cv::imwrite( imgName + ".jpg", result);
             //深度图
             // cv::Mat tex(BUF_HEIGHT, BUF_WIDTH, CV_32FC1, positionData);
             // cv::flip(tex, tex, 0);
@@ -496,6 +505,7 @@ int main()
             updateModelMatrices(modelMatrices, disConfig.maxAmount, disConfig.posStddev, disConfig.scaleMean, disConfig.scaleStddev);
             // disConfig.flag = 0;
             delete [] positionData;
+            
         }
         if(disConfig.save){
             annoWriter.writeToFile("annotation.json");
@@ -694,8 +704,8 @@ void RenderMainImGui(GLFWwindow* window)
         ImGui::SliderFloat("scaleMean",&disConfig.scaleMean,0.2f,2.0f);
         ImGui::SliderFloat("scaleStddev",&disConfig.scaleStddev,0.05f,0.25f);
         
-        ImGui::SliderFloat("ka:ambient",&shaderConfig.ka,0.0f,0.8f);
-        ImGui::SliderFloat("kd:diffusion",&shaderConfig.kd,0.0f,1.0f);
+        ImGui::SliderFloat("ka:ambient",&shaderConfig.ka,0.0f,2.0f);
+        ImGui::SliderFloat("kd:diffusion",&shaderConfig.kd,0.0f,2.0f);
         
         ImGui::Combo("Shape", &disConfig.shapeCurrent, "octahedron\0cube\0corner_truncated_cubes\0cuboctahedrons\0hexagon_octahedrons\0vertex_truncated_octahedrons\0\0");
         //重新生成图片
@@ -722,12 +732,13 @@ void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel){
     std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
     std::random_device rd;
     std::default_random_engine generator(rd());
-    for (unsigned int i = 0; i < 64; ++i)
+    ssaoKernel.clear();
+    for (unsigned int i = 0; i < 128; ++i)
     {
         glm::vec3 sample(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0);
         sample = glm::normalize(sample);
         sample *= randomFloats(generator);
-        float scale = float(i) / 64.0f;
+        // float scale = float(i) / 128.0f;
 
         // scale samples s.t. they're more aligned to center of kernel
         // scale = ourLerp(0.1f, 1.0f, scale * scale);

@@ -9,7 +9,7 @@ using json = nlohmann::json;
 class annotationWriter{
 public:    
     annotationWriter(){}
-    void addPolygon(const std::vector<Point> points){
+    void addPolygon(const std::vector<Point> points, const int& shape){
         std::vector<int> all_x, all_y;
         for(auto point: points){
             all_x.push_back(point.x);
@@ -17,6 +17,7 @@ public:
         }
         polygons_.push_back(all_x);
         polygons_.push_back(all_y);
+        classes_.push_back(shape);
     }
     void genAnnotation(const std::string& filename){
         json annotation;
@@ -24,6 +25,7 @@ public:
         for (size_t i = 0; i < polygons_.size(); i += 2) {
         json shape_attributes;
         shape_attributes["name"] = "polygon";
+        shape_attributes["class"] = classes_[i / 2];
         shape_attributes["all_points_x"] = polygons_[i];
         shape_attributes["all_points_y"] = polygons_[i + 1];
 
@@ -46,5 +48,5 @@ private:
     json annotations;
     //[x1,x2,x3],[y1,y2,y3],[x4,x5,x6],[y4,y5,y6]
     std::vector<std::vector<int>> polygons_;
-
+    std::vector<int> classes_;
 };
