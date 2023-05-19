@@ -473,7 +473,7 @@ int main()
                 }
                 //如果可见点数量小于所有点数量的四分之一，弃掉（完全可见应该接近并大于1/2)
 
-                cout<<verticesPos.size()<<"\t"<<count<<endl;
+                // cout<<verticesPos.size()<<"\t"<<count<<endl;
                 if(count <= verticesPos.size()/3) continue;;
                 
                 //求凸包，即最大外接多边形
@@ -491,8 +491,9 @@ int main()
             // cv::Mat flipped;
             //opengl纹理坐标与图片坐标系不同，opengl左下角为起点，图片左上角起点,理论上需要y轴翻转，但是没必要，我们的图不翻转也行
             // cv::flip(img, flipped, 0);
+
             cv::Mat result;
-            cv::blur(img, result, cv::Size(5, 5));
+            cv::blur(img, result, cv::Size(3, 3));
             auto imgName = "result" + std::to_string(currentFrame);
             cv::imwrite( imgName + ".jpg", result);
             //深度图
