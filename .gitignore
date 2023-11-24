@@ -3,3 +3,5 @@
 /.vscode/*
 asset/.DS_Store
 .DS_Store
+glad.c
+include/glad/glad.h

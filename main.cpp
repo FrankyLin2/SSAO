@@ -136,6 +136,8 @@ int main()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.Fonts->AddFontFromFileTTF("/System/Library/Fonts/STHeiti Light.ttc", 14.0f, nullptr, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
+
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
@@ -692,31 +694,54 @@ unsigned int loadTexture(char const *path)
 
     return textureID;
 }
+void HelpMarker(const char* desc) {
+    ImGui::TextDisabled("(?)");
+    if (ImGui::IsItemHovered()) {
+        ImGui::BeginTooltip();
+        ImGui::PushTextWrapPos(450.0f);
+        ImGui::TextUnformatted(desc);
+        ImGui::PopTextWrapPos();
+        ImGui::EndTooltip();
+    }
+}
 void RenderMainImGui(GLFWwindow* window)
 {
+    
+
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
+
     ImGui::NewFrame();
     {
-        ImGui::Begin("ImGui Window");                          // Create a window called "Hello, world!" and append into it.
-        ImGui::Text("maxAmount: max number of cubes. default 50");
-        ImGui::SliderInt("maxAmount", &disConfig.maxAmount,10,200);
-        ImGui::SliderFloat("posStddev",&disConfig.posStddev,1.0f,5.0f);
-        ImGui::SliderFloat("scaleMean",&disConfig.scaleMean,0.2f,2.0f);
-        ImGui::SliderFloat("scaleStddev",&disConfig.scaleStddev,0.05f,0.25f);
+
+        ImGui::Begin("ImGui");                          // Create a window called "Hello, world!" and append into it.
+        ImGui::SliderInt("最大数量", &disConfig.maxAmount,10,200);
+        ImGui::SameLine();HelpMarker("最大数量: 晶体的最大数量. 默认50，实际数量为0～50");
+        ImGui::SliderFloat("位置方差",&disConfig.posStddev,1.0f,5.0f);
+        ImGui::SameLine();HelpMarker("位置方差: 晶体位置分布的密度，越大越分散");
+
+        ImGui::SliderFloat("平均尺寸缩放",&disConfig.scaleMean,0.2f,2.0f);
+        ImGui::SameLine();HelpMarker("平均尺寸缩放: 晶体平均尺寸");
+        ImGui::SliderFloat("尺寸方差",&disConfig.scaleStddev,0.05f,0.25f);
+        ImGui::SameLine();HelpMarker("尺寸方差: 晶体尺寸分布方差");
+        ImGui::SliderFloat("形貌衬度修正系数",&shaderConfig.ka,0.0f,2.0f);
+        ImGui::SliderFloat("夹角衬度修正系数",&shaderConfig.kd,0.0f,2.0f);
         
-        ImGui::SliderFloat("ka:ambient",&shaderConfig.ka,0.0f,2.0f);
-        ImGui::SliderFloat("kd:diffusion",&shaderConfig.kd,0.0f,2.0f);
-        
-        ImGui::Combo("Shape", &disConfig.shapeCurrent, "octahedron\0cube\0corner_truncated_cubes\0cuboctahedrons\0hexagon_octahedrons\0vertex_truncated_octahedrons\0\0");
+        ImGui::Combo("晶体形状", &disConfig.shapeCurrent, "octahedron\0cube\0corner_truncated_cubes\0cuboctahedrons\0hexagon_octahedrons\0vertex_truncated_octahedrons\0\0");
+        ImGui::SameLine();
+        if (ImGui::Button("导入模型")) {
+            
+        }
         //重新生成图片
-        if (ImGui::Button("generate")){
+        if (ImGui::Button("开始生成图片")){
             disConfig.flag = 1;
         }
-        if(ImGui::Button("stop")){
+        ImGui::SameLine();
+        if(ImGui::Button("暂停")){
             disConfig.flag = 0;
         }
-        if(ImGui::Button("save")){
+        ImGui::SameLine();
+        if(ImGui::Button("保存注释")){
             disConfig.save = 1;
         }
         //自定义GUI内容
