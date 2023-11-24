@@ -46,9 +46,6 @@ void main()
         // get sample depth
         float sampleDepth = texture(gPosition, offset.xy).z; // get depth value of kernel sample
         
-        // range check & accumulate
-        // float rangeCheck = smoothstep(0.0, 1.0, radius / abs(fragPos.z - sampleDepth));//if out of radius, rangecheck<1, gives less weight. 
-        // occlusion += (sampleDepth >= samplePos.z + bias ? 1.0 : 0.0) * rangeCheck;//if sampleDepth in G-buffer is larger than z in samplePos, this sample is good, otherwise abandon      
         occlusion += (sampleDepth >= samplePos.z + bias ? 1.0 : 0.0);
     }
     occlusion = 1.0 - (occlusion / kernelSize);

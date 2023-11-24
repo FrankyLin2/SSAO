@@ -35,8 +35,8 @@ void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount = 
 bool findSame(glm::vec4 &key, vector<glm::vec4> &elems);
 GLfloat sampleMax(GLfloat *positionData, int x, int y);
 // settings
-const unsigned int SCR_WIDTH = 1280;
-const unsigned int SCR_HEIGHT = 800;
+const unsigned int SCR_WIDTH = 2560;
+const unsigned int SCR_HEIGHT = 1600;
 //缓冲尺寸，对retina来说是两倍窗口尺寸
 int BUF_WIDTH, BUF_HEIGHT;
 
@@ -67,11 +67,12 @@ struct distributionConfig
     bool save = 0;
 }disConfig;
 
-//shader config
+//shader config, OutputMode: 0:lighting, 1:position, 2:normal, 3:albedo, 4:depth, 5:SSAO, 6:Shape brightness, 7:Angle brightness
 struct shaderConfig
 {
     float ka = 1.0;
-    float kd = 1.0;
+    float kg = 1.0;
+    int OutputMode = 0;
 }shaderConfig;
 
 //define color
@@ -102,6 +103,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_TRUE);
     const char* glsl_version = "#version 330";
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -118,6 +120,16 @@ int main()
     }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
+    // GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+    // const GLFWvidmode* vidMode = glfwGetVideoMode(primaryMonitor);
+    // int BUF_WIDTH, BUF_HEIGHT; // Declare BUF_WIDTH and BUF_HEIGHT
+    // glfwGetFramebufferSize(window, &BUF_WIDTH, &BUF_HEIGHT);
+    // float scaleFactor = static_cast<float>(vidMode->width) / static_cast<float>(BUF_WIDTH);
+    // glfwSetWindowContentScaleCallback(window, [](GLFWwindow* window, float xscale, float yscale) {
+    //     int windowWidth, windowHeight; // Declare windowWidth and windowHeight
+    //     glfwGetWindowSize(window, &windowWidth, &windowHeight); // Get the window size
+    //     glViewport(0, 0, static_cast<int>(xscale * windowWidth), static_cast<int>(yscale * windowHeight));
+    // });
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     // glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
@@ -279,7 +291,8 @@ int main()
         glm::vec3 noise(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, 0.0f); // rotate around z-axis (in tangent space)
         ssaoNoise.push_back(noise);
     }
-    unsigned int noiseTexture; glGenTextures(1, &noiseTexture);
+    unsigned int noiseTexture; 
+    glGenTextures(1, &noiseTexture);
     glBindTexture(GL_TEXTURE_2D, noiseTexture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -343,8 +356,8 @@ int main()
         shaderGeometryPass_floor.setMat4("view", view);
         // renderFloor
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -30.0f));
-        model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -50.0f));
+        model = glm::scale(model, glm::vec3(30.0f, 30.0f, 15.0f));
         shaderGeometryPass_floor.setMat4("model", model);
         shaderGeometryPass_floor.setInt("invertedNormals", 1); // invert normals as we're inside the cube
         renderFloor();
@@ -407,10 +420,10 @@ int main()
         shaderLightingPass.setVec3("light.direction", lightDirView);
         shaderLightingPass.setVec3("light.Color", lightColor);
         // Update attenuation parameters
-        const float linear    = 0.09f;
-        const float quadratic = 0.032f;
+
         shaderLightingPass.setFloat("light.ka", shaderConfig.ka);
-        shaderLightingPass.setFloat("light.kd", shaderConfig.kd);
+        shaderLightingPass.setFloat("light.kg", shaderConfig.kg);
+        shaderLightingPass.setInt("OutputMode", shaderConfig.OutputMode);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gPosition);
 
@@ -699,16 +712,17 @@ void RenderMainImGui(GLFWwindow* window)
     ImGui::NewFrame();
     {
         ImGui::Begin("ImGui Window");                          // Create a window called "Hello, world!" and append into it.
-        ImGui::Text("maxAmount: max number of cubes. default 50");
+        ImGui::Text("maxAmount: Max number of cubes. default 50");
         ImGui::SliderInt("maxAmount", &disConfig.maxAmount,10,200);
         ImGui::SliderFloat("posStddev",&disConfig.posStddev,1.0f,5.0f);
         ImGui::SliderFloat("scaleMean",&disConfig.scaleMean,0.2f,2.0f);
         ImGui::SliderFloat("scaleStddev",&disConfig.scaleStddev,0.05f,0.25f);
         
-        ImGui::SliderFloat("ka:ambient",&shaderConfig.ka,0.0f,2.0f);
-        ImGui::SliderFloat("kd:diffusion",&shaderConfig.kd,0.0f,2.0f);
+        ImGui::SliderFloat("ka:",&shaderConfig.ka,0.0f,2.0f);
+        ImGui::SliderFloat("kg:",&shaderConfig.kg,0.0f,2.0f);
         
         ImGui::Combo("Shape", &disConfig.shapeCurrent, "octahedron\0cube\0corner_truncated_cubes\0cuboctahedrons\0hexagon_octahedrons\0vertex_truncated_octahedrons\0\0");
+        ImGui::Combo("Output",&shaderConfig.OutputMode,"result\0position\0normal\0Albedo\0depth\0SSAO\0Shape Contrast\0Angle Contrast\0Blend Factor t\0");
         //重新生成图片
         if (ImGui::Button("generate")){
             disConfig.flag = 1;
@@ -739,11 +753,11 @@ void genSsaoKernel(std::vector<glm::vec3> &ssaoKernel){
         glm::vec3 sample(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0);
         sample = glm::normalize(sample);
         sample *= randomFloats(generator);
-        // float scale = float(i) / 128.0f;
+        float scale = float(i) / 128.0f;
 
-        // scale samples s.t. they're more aligned to center of kernel
-        // scale = ourLerp(0.1f, 1.0f, scale * scale);
-        // sample *= scale;
+        //scale samples s.t. they're more aligned to center of kernel
+        scale = ourLerp(0.1f, 1.0f, scale * scale);
+        sample *= scale;
         ssaoKernel.push_back(sample);
     }
 }
@@ -766,7 +780,7 @@ void updateModelMatrices(std::vector<glm::mat4> &modelMatrices, int maxAmount, f
     {
         glm::mat4 model = glm::mat4(1.0f);
         // 1. translation: 
-        glm::vec3 pos = glm::vec3(normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev, randomFloats(generator) * 20-10) + mean;
+        glm::vec3 pos = glm::vec3(normalRandomFloats(generator) * posStddev, normalRandomFloats(generator) * posStddev, -float(i)/amount * 70) + mean;
         model = glm::translate(model, pos);
 
         // 2. scale: Scale between 0.7 and 1.3f
